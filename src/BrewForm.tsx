@@ -7,11 +7,15 @@ type BrewFormData = {
     notes: string;
 };
 
-const BrewForm: React.FC = () => {
+type BrewFormProps = {
+    onSubmitBrew: (brew: BrewFormData) => void;
+};
+
+const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
     const [formData, setFormData] = useState<BrewFormData>({
-        coffeeWeight: 0,
-        brewTime: 0,
-        yieldWeight: 0,
+        coffeeWeight: 18, // default slider value
+        brewTime: 30,
+        yieldWeight: 36,
         notes: '',
     });
 
@@ -20,6 +24,7 @@ const BrewForm: React.FC = () => {
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         const newValue = numberFields.has(name) ? Number(value) : value;
+
         setFormData((prev) => ({
             ...prev,
             [name]: newValue,
@@ -28,11 +33,11 @@ const BrewForm: React.FC = () => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        console.log('Brew entry:', formData);
+        onSubmitBrew(formData); // pass brew data up to App
         setFormData({
-            coffeeWeight: 0,
-            brewTime: 0,
-            yieldWeight: 0,
+            coffeeWeight: 18,
+            brewTime: 30,
+            yieldWeight: 36,
             notes: '',
         });
     };
@@ -51,18 +56,36 @@ const BrewForm: React.FC = () => {
                     onChange={handleChange}
                 />
             </label>
+
             <label>
                 Brew Time (sec):
-                <input type="number" name="brewTime" value={formData.brewTime} onChange={handleChange} />
+                <input
+                    type="number"
+                    name="brewTime"
+                    value={formData.brewTime.toString()}
+                    onChange={handleChange}
+                />
             </label>
+
             <label>
                 Yield Weight (g):
-                <input type="number" name="yieldWeight" value={formData.yieldWeight} onChange={handleChange} />
+                <input
+                    type="number"
+                    name="yieldWeight"
+                    value={formData.yieldWeight.toString()}
+                    onChange={handleChange}
+                />
             </label>
+
             <label>
                 Notes:
-                <textarea name="notes" value={formData.notes} onChange={handleChange}></textarea>
+                <textarea
+                    name="notes"
+                    value={formData.notes}
+                    onChange={handleChange}
+                ></textarea>
             </label>
+
             <button type="submit">Save Brew</button>
         </form>
     );
