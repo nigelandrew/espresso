@@ -42,10 +42,17 @@ app.post('/brews', (req, res) => {
         return res.status(400).json({ error: 'Invalid brew format' });
     }
 
+    // Add timestamp
+    const brewWithTimestamp = {
+        ...newBrew,
+        timestamp: new Date().toISOString(),
+    };
+
     const brews = loadBrews();
-    brews.push(newBrew);
+    brews.push(brewWithTimestamp);
     saveBrews(brews);
 
+    console.log('Saved brew:', brewWithTimestamp);
     res.status(201).json({ message: 'Brew saved' });
 });
 

@@ -5,6 +5,7 @@ type Brew = {
     brewTime: number;
     yieldWeight: number;
     notes: string;
+    timestamp: string; // ISO format
 };
 
 type BrewHistoryProps = {
@@ -23,6 +24,8 @@ const BrewHistory: React.FC<BrewHistoryProps> = ({ brews }) => {
                         <strong>{brew.coffeeWeight}g</strong> in → {brew.yieldWeight}g out over {brew.brewTime}s
                         <br />
                         <em>{brew.notes}</em>
+                        <br />
+                        <small>{new Date(brew.timestamp).toLocaleString()}</small>
                     </li>
                 ))}
             </ul>

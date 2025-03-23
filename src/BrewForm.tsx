@@ -1,18 +1,19 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 
-type BrewFormData = {
+type Brew = {
     coffeeWeight: number;
     brewTime: number;
     yieldWeight: number;
     notes: string;
+    timestamp: string;
 };
 
 type BrewFormProps = {
-    onSubmitBrew: (brew: BrewFormData) => void;
+    onSubmitBrew: (brew: Omit<Brew, 'timestamp'>) => void;
 };
 
 const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
-    const [formData, setFormData] = useState<BrewFormData>({
+    const [formData, setFormData] = useState<Omit<Brew, 'timestamp'>>({
         coffeeWeight: 18, // default slider value
         brewTime: 30,
         yieldWeight: 36,

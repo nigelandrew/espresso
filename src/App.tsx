@@ -7,6 +7,7 @@ type Brew = {
     brewTime: number;
     yieldWeight: number;
     notes: string;
+    timestamp: string; // ISO format
 };
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
             .catch((err) => console.error('Failed to load brews:', err));
     }, []);
 
-    const addBrew = async (brew: Brew) => {
+    const addBrew = async (brew: Omit<Brew, 'timestamp'>) => {
         try {
             await fetch('http://localhost:4000/brews', {
                 method: 'POST',
@@ -27,7 +28,7 @@ function App() {
                 body: JSON.stringify(brew),
             });
 
-            // Refresh brew list
+            // Reload brews from backend
             const res = await fetch('http://localhost:4000/brews');
             const updated = await res.json();
             setBrews(updated);
