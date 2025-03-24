@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import BrewForm from './BrewForm';
 import BrewHistory from './BrewHistory';
 
@@ -38,12 +39,20 @@ function App() {
     };
 
     return (
-        <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-            <h1>Espresso Brew Tracker</h1>
-            <BrewForm onSubmitBrew={addBrew} />
-            <hr style={{ margin: '2rem 0' }} />
-            <BrewHistory brews={brews} />
-        </div>
+        <Router>
+            <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
+                <nav style={{ marginBottom: '1rem' }}>
+                    <Link to="/log" style={{ marginRight: '1rem' }}>Log Brew</Link>
+                    <Link to="/history">View History</Link>
+                </nav>
+
+                <Routes>
+                    <Route path="/" element={<Navigate to="/log" replace />} />
+                    <Route path="/log" element={<BrewForm onSubmitBrew={addBrew} />} />
+                    <Route path="/history" element={<BrewHistory brews={brews} />} />
+                </Routes>
+            </div>
+        </Router>
     );
 }
 

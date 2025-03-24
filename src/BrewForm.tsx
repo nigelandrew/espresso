@@ -44,7 +44,9 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div>
+            <h2>Log Brew</h2>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <label>
                 Coffee Weight (g): {formData.coffeeWeight}
                 <input
@@ -89,6 +91,7 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
 
             <button type="submit">Save Brew</button>
         </form>
+        </div>
     );
 };
 
