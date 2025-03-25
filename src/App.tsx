@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, NavLink } from 'react-router-dom';
 import BrewForm from './BrewForm';
 import BrewHistory from './BrewHistory';
 
@@ -41,9 +41,43 @@ function App() {
     return (
         <Router>
             <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-                <nav style={{ marginBottom: '1rem' }}>
-                    <Link to="/log" style={{ marginRight: '1rem' }}>Log Brew</Link>
-                    <Link to="/history">View History</Link>
+                <nav
+                    style={{
+                        position: 'sticky',
+                        top: 0,
+                        background: '#242424',
+                        padding: '1rem',
+                        zIndex: 10,
+                    }}
+                >
+                    <NavLink
+                        to="/log"
+                        style={({ isActive }) => ({
+                            marginRight: '1rem',
+                            fontWeight: isActive ? 'bold' : 'normal',
+                            textDecoration: 'none',
+                            color: '#FFF',
+                            backgroundColor: isActive ? '#555' : '#000',
+                            padding: '1rem',
+                            borderRadius: '10px',
+                        })}
+                    >
+                        Log Brew
+                    </NavLink>
+
+                    <NavLink
+                        to="/history"
+                        style={({ isActive }) => ({
+                            fontWeight: isActive ? 'bold' : 'normal',
+                            textDecoration: 'none',
+                            color: '#FFF',
+                            backgroundColor: isActive ? '#555' : '#000',
+                            padding: '1rem',
+                            borderRadius: '10px',
+                        })}
+                    >
+                        View History
+                    </NavLink>
                 </nav>
 
                 <Routes>
