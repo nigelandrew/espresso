@@ -1,4 +1,6 @@
 import React from 'react';
+import BrewChart from './BrewChart.tsx';
+import BrewTable from './BrewTable';
 
 type Brew = {
     coffeeWeight: number;
@@ -17,18 +19,8 @@ const BrewHistory: React.FC<BrewHistoryProps> = ({ brews }) => {
 
     return (
         <div>
-            <h2 className="text-2xl font-semibold mb-4 mt-4">Brew History</h2>
-            <ul>
-                {brews.map((brew, index) => (
-                    <li key={index}>
-                        <strong>{brew.coffeeWeight}g</strong> in → {brew.yieldWeight}g out over {brew.brewTime}s
-                        <br />
-                        <em>{brew.notes}</em>
-                        <br />
-                        <small>{new Date(brew.timestamp).toLocaleString()}</small>
-                    </li>
-                ))}
-            </ul>
+            <BrewChart brews={brews} />
+            <BrewTable brews={brews} />
         </div>
     );
 };
