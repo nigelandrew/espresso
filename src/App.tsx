@@ -40,7 +40,7 @@ function App() {
 
     return (
         <Router>
-            <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
+            <div className="min-h-screen px-4 py-6">
                 <nav
                     style={{
                         position: 'sticky',

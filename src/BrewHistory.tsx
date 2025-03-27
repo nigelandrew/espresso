@@ -13,11 +13,11 @@ type BrewHistoryProps = {
 };
 
 const BrewHistory: React.FC<BrewHistoryProps> = ({ brews }) => {
-    if (brews.length === 0) return <p>No brews saved yet.</p>;
+    if (brews.length === 0) return <p className="mt-4">No brews saved yet.</p>;
 
     return (
         <div>
-            <h2>Brew History</h2>
+            <h2 className="text-2xl font-semibold mb-4 mt-4">Brew History</h2>
             <ul>
                 {brews.map((brew, index) => (
                     <li key={index}>
