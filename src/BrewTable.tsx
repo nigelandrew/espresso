@@ -16,10 +16,11 @@ type Brew = {
 }
 
 type Props = {
-    brews: Brew[]
+    brews: Brew[];
+    onDelete: (timestamp: string) => void;
 }
 
-export default function BrewTable({ brews }: Props) {
+export default function BrewTable({ brews, onDelete }: Props) {
     const sortedBrews = [...brews].sort(
         (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
     )
@@ -35,6 +36,7 @@ export default function BrewTable({ brews }: Props) {
                         <TableHead>Yield (g)</TableHead>
                         <TableHead>Time (s)</TableHead>
                         <TableHead>Notes</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -45,6 +47,15 @@ export default function BrewTable({ brews }: Props) {
                             <TableCell>{brew.yieldWeight}</TableCell>
                             <TableCell>{brew.brewTime}</TableCell>
                             <TableCell>{brew.notes || "—"}</TableCell>
+                            <TableCell className="text-right">
+                                <button
+                                    type="button"
+                                    onClick={() => onDelete(brew.timestamp)}
+                                    className="text-red-500 hover:underline text-sm"
+                                >
+                                    Delete
+                                </button>
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

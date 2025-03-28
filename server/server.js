@@ -56,6 +56,21 @@ app.post('/brews', (req, res) => {
     res.status(201).json({ message: 'Brew saved' });
 });
 
+// DELETE /brews → remove unwanted brews
+app.delete('/brews/:timestamp', (req, res) => {
+    const { timestamp } = req.params;
+    const brews = loadBrews();
+
+    const updatedBrews = brews.filter(brew => brew.timestamp !== timestamp);
+
+    if ( updatedBrews.length === brews.length ) {
+        return res.status(404).json({ error: 'No brews found' });
+    }
+
+    saveBrews(updatedBrews);
+    res.json({ message: 'Brew deleted' });
+})
+
 // Start server
 app.listen(PORT, () => {
     console.log(`☕ Brew backend running at http://localhost:${PORT}`);

@@ -12,15 +12,16 @@ type Brew = {
 
 type BrewHistoryProps = {
     brews: Brew[];
+    onDelete: (timestamp: string) => void;
 };
 
-const BrewHistory: React.FC<BrewHistoryProps> = ({ brews }) => {
+const BrewHistory: React.FC<BrewHistoryProps> = ({ brews, onDelete }) => {
     if (brews.length === 0) return <p className="mt-4">No brews saved yet.</p>;
 
     return (
         <div>
             <BrewChart brews={brews} />
-            <BrewTable brews={brews} />
+            <BrewTable brews={brews} onDelete={onDelete} />
         </div>
     );
 };

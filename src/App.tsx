@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, NavLink } from 'react-router-dom';
 import BrewForm from './BrewForm';
 import BrewHistory from './BrewHistory';
+import { Toaster, toast } from 'sonner';
 
 type Brew = {
     coffeeWeight: number;
@@ -38,7 +39,25 @@ function App() {
         }
     };
 
+    const deleteBrew = async (timestamp: string) => {
+        try {
+            await fetch(`http://localhost:4000/brews/${timestamp}`, {
+                method: 'DELETE',
+            });
+
+            const res = await fetch('http://localhost:4000/brews');
+            const updated = await res.json();
+            setBrews(updated);
+
+            toast.success("Brew deleted successfully");
+        } catch (e) {
+            console.error('Failed to delete brew:', e);
+            toast.error("Failed to delete brew. Please try again.");
+        }
+    };
+
     return (
+        <>
         <Router>
             <div className="min-h-screen px-4 py-6">
                 <nav
@@ -83,10 +102,13 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Navigate to="/log" replace />} />
                     <Route path="/log" element={<BrewForm onSubmitBrew={addBrew} />} />
-                    <Route path="/history" element={<BrewHistory brews={brews} />} />
+                    <Route path="/history" element={<BrewHistory brews={brews} onDelete={deleteBrew} />} />
                 </Routes>
             </div>
         </Router>
+
+    <Toaster/>
+        </>
     );
 }
 
