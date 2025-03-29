@@ -3,6 +3,7 @@ import BrewChart from './BrewChart.tsx';
 import BrewTable from './BrewTable';
 
 type Brew = {
+    id: string;
     coffeeWeight: number;
     brewTime: number;
     yieldWeight: number;
@@ -13,7 +14,7 @@ type Brew = {
 
 type BrewHistoryProps = {
     brews: Brew[];
-    onDelete: (timestamp: string) => void;
+    onDelete: (id: string) => void;
 };
 
 const BrewHistory: React.FC<BrewHistoryProps> = ({ brews, onDelete }) => {

@@ -5,9 +5,11 @@ import BrewHistory from './BrewHistory';
 import { Toaster, toast } from 'sonner';
 
 type Brew = {
+    id: string;
     coffeeWeight: number;
     brewTime: number;
     yieldWeight: number;
+    boilerTemperature: number;
     notes: string;
     timestamp: string; // ISO format
 };
@@ -22,7 +24,7 @@ function App() {
             .catch((err) => console.error('Failed to load brews:', err));
     }, []);
 
-    const addBrew = async (brew: Omit<Brew, 'timestamp'>) => {
+    const addBrew = async (brew: Omit<Brew, 'timestamp' | 'id'>) => {
         try {
             await fetch('http://localhost:4000/brews', {
                 method: 'POST',
@@ -39,14 +41,12 @@ function App() {
         }
     };
 
-    const deleteBrew = async (timestamp: string) => {
+    const deleteBrew = async (id: string) => {
         try {
-            await fetch(`http://localhost:4000/brews/${timestamp}`, {
+            await fetch(`http://localhost:4000/brews/${id}`, {
                 method: 'DELETE',
             });
-
-            const res = await fetch('http://localhost:4000/brews');
-            const updated = await res.json();
+            const updated = await fetch("http://localhost:4000/brews").then(r => r.json());
             setBrews(updated);
 
             toast.success("Brew deleted successfully");

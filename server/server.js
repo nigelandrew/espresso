@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 const PORT = 4000;
@@ -43,25 +44,26 @@ app.post('/brews', (req, res) => {
     }
 
     // Add timestamp
-    const brewWithTimestamp = {
+    const brewWithServerMetadata = {
         ...newBrew,
+        id: uuidv4(),
         timestamp: new Date().toISOString(),
     };
 
     const brews = loadBrews();
-    brews.push(brewWithTimestamp);
+    brews.push(brewWithServerMetadata);
     saveBrews(brews);
 
-    console.log('Saved brew:', brewWithTimestamp);
+    console.log('Saved brew:', brewWithServerMetadata);
     res.status(201).json({ message: 'Brew saved' });
 });
 
 // DELETE /brews → remove unwanted brews
 app.delete('/brews/:timestamp', (req, res) => {
-    const { timestamp } = req.params;
+    const { id } = req.params;
     const brews = loadBrews();
 
-    const updatedBrews = brews.filter(brew => brew.timestamp !== timestamp);
+    const updatedBrews = brews.filter(brew => brew.id !== id);
 
     if ( updatedBrews.length === brews.length ) {
         return res.status(404).json({ error: 'No brews found' });

@@ -1,6 +1,7 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 type Brew = {
+    id: string;
     coffeeWeight: number;
     brewTime: number;
     yieldWeight: number;

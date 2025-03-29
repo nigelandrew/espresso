@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 
 type Brew = {
+    id: string;
     coffeeWeight: number;
     brewTime: number;
     yieldWeight: number;
@@ -10,11 +11,11 @@ type Brew = {
 };
 
 type BrewFormProps = {
-    onSubmitBrew: (brew: Omit<Brew, 'timestamp'>) => void;
+    onSubmitBrew: (brew: Omit<Brew, 'timestamp' | 'id'>) => void;
 };
 
 const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
-    const [formData, setFormData] = useState<Omit<Brew, 'timestamp'>>({
+    const [formData, setFormData] = useState<Omit<Brew, 'timestamp' | 'id'>>({
         coffeeWeight: 18, // default slider value
         brewTime: 30,
         yieldWeight: 36,
