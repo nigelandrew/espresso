@@ -11,6 +11,7 @@ type Brew = {
     coffeeWeight: number
     brewTime: number
     yieldWeight: number
+    boilerTemperature: number
     notes: string
     timestamp: string
 }
@@ -35,6 +36,7 @@ export default function BrewTable({ brews, onDelete }: Props) {
                         <TableHead>Coffee (g)</TableHead>
                         <TableHead>Yield (g)</TableHead>
                         <TableHead>Time (s)</TableHead>
+                        <TableHead>Boiler Temperature (C)</TableHead>
                         <TableHead>Notes</TableHead>
                         <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
@@ -46,6 +48,7 @@ export default function BrewTable({ brews, onDelete }: Props) {
                             <TableCell>{brew.coffeeWeight}</TableCell>
                             <TableCell>{brew.yieldWeight}</TableCell>
                             <TableCell>{brew.brewTime}</TableCell>
+                            <TableCell>{brew.boilerTemperature}</TableCell>
                             <TableCell>{brew.notes || "—"}</TableCell>
                             <TableCell className="text-right">
                                 <button

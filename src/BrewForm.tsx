@@ -4,6 +4,7 @@ type Brew = {
     coffeeWeight: number;
     brewTime: number;
     yieldWeight: number;
+    boilerTemperature: number;
     notes: string;
     timestamp: string;
 };
@@ -17,6 +18,7 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
         coffeeWeight: 18, // default slider value
         brewTime: 30,
         yieldWeight: 36,
+        boilerTemperature: 118,
         notes: '',
     });
 
@@ -39,6 +41,7 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
             coffeeWeight: 18,
             brewTime: 30,
             yieldWeight: 36,
+            boilerTemperature: 118,
             notes: '',
         });
     };
@@ -76,6 +79,16 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
                     type="number"
                     name="yieldWeight"
                     value={formData.yieldWeight.toString()}
+                    onChange={handleChange}
+                />
+            </label>
+
+            <label>
+                Boiler Temperature (C):
+                <input
+                    type="number"
+                    name="boilerTemperature"
+                    value={formData.boilerTemperature.toString()}
                     onChange={handleChange}
                 />
             </label>

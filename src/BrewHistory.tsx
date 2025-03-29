@@ -6,6 +6,7 @@ type Brew = {
     coffeeWeight: number;
     brewTime: number;
     yieldWeight: number;
+    boilerTemperature: number;
     notes: string;
     timestamp: string; // ISO format
 };
