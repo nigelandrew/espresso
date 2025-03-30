@@ -1,14 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-
-type Brew = {
-    id: string;
-    coffeeWeight: number;
-    brewTime: number;
-    yieldWeight: number;
-    boilerTemperature: number;
-    notes: string;
-    timestamp: string;
-};
+import { Brew } from "@/types/brew";
 
 type BrewFormProps = {
     onSubmitBrew: (brew: Omit<Brew, 'timestamp' | 'id'>) => void;

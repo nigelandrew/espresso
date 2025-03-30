@@ -1,16 +1,7 @@
 import React from 'react';
+import { Brew } from '@/types/brew.ts';
 import BrewChart from './BrewChart.tsx';
 import BrewTable from './BrewTable';
-
-type Brew = {
-    id: string;
-    coffeeWeight: number;
-    brewTime: number;
-    yieldWeight: number;
-    boilerTemperature: number;
-    notes: string;
-    timestamp: string; // ISO format
-};
 
 type BrewHistoryProps = {
     brews: Brew[];
