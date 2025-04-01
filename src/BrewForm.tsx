@@ -1,17 +1,32 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { Brew } from "@/types/brew";
+import { CoffeeType } from "@/types/coffee";
 
 type BrewFormProps = {
     onSubmitBrew: (brew: Omit<Brew, 'timestamp' | 'id'>) => void;
 };
 
 const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
+
+    const [coffeeTypes, setCoffeeTypes] = useState<CoffeeType[]>([]);
+
+    useEffect(() => {
+        fetch("http://localhost:4000/coffee-types")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("Coffee types loaded:", data);
+                setCoffeeTypes(data);
+            })
+            .catch((err) => console.error("Failed to fetch coffee types:", err));
+    }, []);
+
     const [formData, setFormData] = useState<Omit<Brew, 'timestamp' | 'id'>>({
         coffeeWeight: 18, // default slider value
         brewTime: 30,
         yieldWeight: 36,
         boilerTemperature: 118,
         notes: '',
+        coffeeType: undefined,
     });
 
     const numberFields = new Set(['coffeeWeight', 'brewTime', 'yieldWeight']);
@@ -26,6 +41,11 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
         }));
     };
 
+    const handleCoffeeTypeChange = (id: string) => {
+        const selected = coffeeTypes.find((ct) => ct.id === id);
+        setFormData((prev) => ({ ...prev, coffeeType: selected }));
+    };
+
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         onSubmitBrew(formData); // pass brew data up to App
@@ -35,10 +55,11 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
             yieldWeight: 36,
             boilerTemperature: 118,
             notes: '',
+            coffeeType: undefined,
         });
     };
 
-    return (
+    return(
         <div>
             <h2 className="text-2xl font-semibold mb-4 mt-4">Log Brew</h2>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -85,7 +106,25 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
                 />
             </label>
 
-            <label>
+                <label>
+                    Coffee Type:
+                    <select
+                        id="coffeeType"
+                        name="coffeeType"
+                        value={formData.coffeeType?.id ?? ""}
+                        onChange={(e) => handleCoffeeTypeChange(e.target.value)}
+                        className="w-full border rounded p-2"
+                    >
+                        <option value="">Select a coffee</option>
+                        {coffeeTypes.map((coffee) => (
+                            <option key={coffee.id} value={coffee.id}>
+                                {coffee.name} — {coffee.roaster}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+
+                <label>
                 Notes:
                 <textarea
                     name="notes"

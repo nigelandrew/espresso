@@ -28,18 +28,35 @@ export default function CoffeeTypeForm({ onSubmit }: CoffeeTypeFormProps) {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit({ ...formData, id: uuidv4() });
-        setFormData({
-            name: "",
-            roaster: "",
-            originLocation: "",
-            elevation: "",
-            roastLevel: "medium",
-            flavorNotes: "",
-        });
+
+        const fullCoffeeType = { ...formData, id: uuidv4() };
+        onSubmit(fullCoffeeType);
+
+        try {
+            const res = await fetch("http://localhost:4000/coffee-types", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(fullCoffeeType),
+            });
+
+            if (!res.ok) throw new Error();
+
+            // Reset form
+            setFormData({
+                name: "",
+                roaster: "",
+                originLocation: "",
+                elevation: "",
+                roastLevel: "medium",
+                flavorNotes: "",
+            });
+        } catch {
+            console.log("Error! Cannot post coffee type from CoffeeTypeForm.tsx");
+        }
     };
+
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">

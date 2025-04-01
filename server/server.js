@@ -8,6 +8,18 @@ const app = express();
 const PORT = 4000;
 const DATA_FILE = path.join(__dirname, 'brews.json');
 
+const coffeeTypesPath = path.join(__dirname, 'coffee-types.json');
+
+const loadCoffeeTypes = () => {
+    if (!fs.existsSync(coffeeTypesPath)) return [];
+    const data = fs.readFileSync(coffeeTypesPath);
+    return JSON.parse(data);
+};
+
+const saveCoffeeTypes = (coffeeTypes) => {
+    fs.writeFileSync(coffeeTypesPath, JSON.stringify(coffeeTypes, null, 2));
+};
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -28,6 +40,11 @@ const saveBrews = (brews) => {
 app.get('/brews', (req, res) => {
     const brews = loadBrews();
     res.json(brews);
+});
+
+app.get('/coffee-types', (req, res) => {
+    const coffeeTypes = loadCoffeeTypes();
+    res.json(coffeeTypes);
 });
 
 // POST /brews → save new brew
@@ -56,6 +73,28 @@ app.post('/brews', (req, res) => {
 
     console.log('Saved brew:', brewWithServerMetadata);
     res.status(201).json({ message: 'Brew saved' });
+});
+
+// POST /coffee-types → save new coffee type
+app.post('/coffee-types', (req, res) => {
+    const newCoffee = req.body;
+
+    if (
+        typeof newCoffee.id !== 'string' ||
+        typeof newCoffee.name !== 'string' ||
+        typeof newCoffee.roaster !== 'string' ||
+        typeof newCoffee.originLocation !== 'string' ||
+        typeof newCoffee.elevation !== 'string' ||
+        typeof newCoffee.roastLevel !== 'string'
+    ) {
+        return res.status(400).json({ error: 'Invalid coffee format' });
+    }
+
+    const coffeeTypes = loadCoffeeTypes();
+    coffeeTypes.push(newCoffee);
+    saveCoffeeTypes(coffeeTypes);
+
+    res.status(201).json({ message: 'Coffee type saved' });
 });
 
 // DELETE /brews → remove unwanted brews
