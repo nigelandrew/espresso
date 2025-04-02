@@ -1,6 +1,5 @@
 import React from 'react';
 import { Brew } from '@/types/brew.ts';
-import BrewChart from './BrewChart.tsx';
 import BrewTable from './BrewTable';
 
 type BrewHistoryProps = {
@@ -13,7 +12,6 @@ const BrewHistory: React.FC<BrewHistoryProps> = ({ brews, onDelete }) => {
 
     return (
         <div>
-            <BrewChart brews={brews} />
             <BrewTable brews={brews} onDelete={onDelete} />
         </div>
     );

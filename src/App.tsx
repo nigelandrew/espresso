@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, NavLink } from 'react
 import BrewForm from './BrewForm';
 import BrewHistory from './BrewHistory';
 import CoffeeTypeForm from './CoffeeTypeForm';
+import BrewChart from "./BrewChart";
 import { Toaster, toast } from 'sonner';
 
 type Brew = {
@@ -103,6 +104,20 @@ function App() {
                     </NavLink>
 
                     <NavLink
+                        to="/charts"
+                        style={({ isActive }) => ({
+                            marginRight: '1rem',
+                            fontWeight: isActive ? 'bold' : 'normal',
+                            textDecoration: 'none',
+                            color: '#FFF',
+                            backgroundColor: isActive ? '#555' : '#000',
+                            padding: '1rem',
+                            borderRadius: '10px',
+                        })}
+                    >
+                        Charts
+                    </NavLink>
+                    <NavLink
                         to="/coffee-types"
                         style={({ isActive }) => ({
                             fontWeight: isActive ? 'bold' : 'normal',
@@ -121,6 +136,7 @@ function App() {
                     <Route path="/" element={<Navigate to="/log" replace />} />
                     <Route path="/log" element={<BrewForm onSubmitBrew={addBrew} />} />
                     <Route path="/history" element={<BrewHistory brews={brews} onDelete={deleteBrew} />} />
+                    <Route path="/charts" element={<BrewChart brews={brews} />} />
                     <Route path="/coffee-types" element={<CoffeeTypeForm onSubmit={(coffee) => console.log(coffee)} />} />
                 </Routes>
             </div>
