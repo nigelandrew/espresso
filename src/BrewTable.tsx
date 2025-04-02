@@ -46,7 +46,7 @@ export default function BrewTable({ brews, onDelete }: Props) {
                             <TableCell className="text-right">
                                 <button
                                     type="button"
-                                    onClick={() => onDelete(brew.timestamp)}
+                                    onClick={() => onDelete(brew.id)}
                                     className="text-red-500 hover:underline text-sm"
                                 >
                                     Delete

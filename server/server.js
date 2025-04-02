@@ -98,7 +98,7 @@ app.post('/coffee-types', (req, res) => {
 });
 
 // DELETE /brews → remove unwanted brews
-app.delete('/brews/:timestamp', (req, res) => {
+app.delete('/brews/:id', (req, res) => {
     const { id } = req.params;
     const brews = loadBrews();
 
