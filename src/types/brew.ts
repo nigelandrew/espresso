@@ -6,6 +6,7 @@ export type Brew = {
     brewTime: number;
     yieldWeight: number;
     boilerTemperature: number;
+    grindSetting: number;
     notes: string;
     timestamp: string;
     coffeeType?: CoffeeType;

@@ -5,16 +5,7 @@ import BrewHistory from './BrewHistory';
 import CoffeeTypeForm from './CoffeeTypeForm';
 import BrewChart from "./BrewChart";
 import { Toaster, toast } from 'sonner';
-
-type Brew = {
-    id: string;
-    coffeeWeight: number;
-    brewTime: number;
-    yieldWeight: number;
-    boilerTemperature: number;
-    notes: string;
-    timestamp: string; // ISO format
-};
+import { Brew } from "./types/brew.ts"
 
 function App() {
     const [brews, setBrews] = useState<Brew[]>([]);
@@ -63,14 +54,11 @@ function App() {
     return (
         <>
         <Router>
-            <div className="min-h-screen px-4 py-6">
+            <div className="min-h-screen flex flex-col items-center justify-start px-4 py-10">
                 <nav
+                    className="mb-8 flex gap-4"
                     style={{
-                        position: 'sticky',
-                        top: 0,
-                        background: '#242424',
-                        padding: '1rem',
-                        zIndex: 10,
+                        background: '#242424'
                     }}
                 >
                     <NavLink
@@ -132,6 +120,7 @@ function App() {
                     </NavLink>
                 </nav>
 
+                <main className="w-full max-w-xl mx-auto">
                 <Routes>
                     <Route path="/" element={<Navigate to="/log" replace />} />
                     <Route path="/log" element={<BrewForm onSubmitBrew={addBrew} />} />
@@ -139,6 +128,7 @@ function App() {
                     <Route path="/charts" element={<BrewChart brews={brews} />} />
                     <Route path="/coffee-types" element={<CoffeeTypeForm onSubmit={(coffee) => console.log(coffee)} />} />
                 </Routes>
+                </main>
             </div>
         </Router>
 
