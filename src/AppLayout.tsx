@@ -50,7 +50,7 @@ export default function AppLayout() {
                         to="/log"
                         className={({ isActive }) =>
                             `hidden sm:inline-block text-sm font-medium px-4 py-2 rounded-full transition ${
-                                isActive ? "bg-malta-600 text-white" : "bg-zinc-800 text-zinc-200 hover:bg-zinc-700"
+                                isActive ? "bg-blue-900 text-white" : "bg-zinc-800 text-zinc-200 hover:bg-zinc-700"
                             }`
                         }
                     >
