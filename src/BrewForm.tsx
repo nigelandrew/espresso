@@ -11,7 +11,6 @@ type BrewFormProps = {
 };
 
 const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
-
     const [coffeeTypes, setCoffeeTypes] = useState<CoffeeType[]>([]);
 
     useEffect(() => {
@@ -25,7 +24,7 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
     }, []);
 
     const [formData, setFormData] = useState<Omit<Brew, 'timestamp' | 'id'>>({
-        coffeeWeight: 18, // default slider value
+        coffeeWeight: 18,
         brewTime: 30,
         yieldWeight: 36,
         boilerTemperature: 118,
@@ -53,7 +52,7 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        onSubmitBrew(formData); // pass brew data up to App
+        onSubmitBrew(formData);
         setFormData({
             coffeeWeight: 18,
             brewTime: 30,
@@ -65,45 +64,46 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
         });
     };
 
-    return(
-        <div className="max-w-xl mx-auto bg-white dark:bg-zinc-900 rounded-2xl shadow-lg p-6 space-y-6">
+    return (
+        <div className="max-w-xl mx-auto bg-malta-975 text-malta-100 rounded-2xl shadow-lg p-6 space-y-6">
             <h2 className="text-3xl font-bold tracking-tight">Log Brew</h2>
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                Coffee Weight (g): {formData.coffeeWeight}
-                <Input
-                    type="range"
-                    name="coffeeWeight"
-                    min={10}
-                    max={25}
-                    step={0.1}
-                    value={formData.coffeeWeight}
-                    onChange={handleChange}
-                />
-            </label>
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <label className="block text-sm font-medium text-malta-200 mb-1">
+                    Coffee Weight (g): {formData.coffeeWeight}
+                    <Input
+                        type="range"
+                        name="coffeeWeight"
+                        min={10}
+                        max={25}
+                        step={0.1}
+                        value={formData.coffeeWeight}
+                        onChange={handleChange}
+                        className="w-full mt-1"
+                    />
+                </label>
 
-            <label>
-                Brew Time (sec):
-                <Input
-                    type="number"
-                    name="brewTime"
-                    value={formData.brewTime}
-                    onChange={handleChange}
-                    className="w-full"
-                />
-            </label>
+                <label className="block text-sm font-medium text-malta-200 mb-1">
+                    Brew Time (sec):
+                    <Input
+                        type="number"
+                        name="brewTime"
+                        value={formData.brewTime}
+                        onChange={handleChange}
+                        className="w-full"
+                    />
+                </label>
 
-            <label>
-                Yield Weight (g):
-                <Input
-                    type="number"
-                    name="yieldWeight"
-                    value={formData.yieldWeight.toString()}
-                    onChange={handleChange}
-                />
-            </label>
+                <label className="block text-sm font-medium text-malta-200 mb-1">
+                    Yield Weight (g):
+                    <Input
+                        type="number"
+                        name="yieldWeight"
+                        value={formData.yieldWeight.toString()}
+                        onChange={handleChange}
+                    />
+                </label>
 
-                <label>
+                <label className="block text-sm font-medium text-malta-200 mb-1">
                     Boiler Temperature (C):
                     <Input
                         type="number"
@@ -113,10 +113,10 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
                     />
                 </label>
 
-                <label>
+                <label className="block text-sm font-medium text-malta-200 mb-1">
                     Grind Setting:
                     <Input
-                        className="transition-all duration-400 focus:ring-2 focus:ring-blue-500"
+                        className="transition-all duration-200 focus:ring-2 focus:ring-malta-400"
                         type="number"
                         name="grindSetting"
                         value={formData.grindSetting.toString()}
@@ -124,18 +124,17 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
                     />
                 </label>
 
-                <label className="block text-sm font-medium mb-1 text-gray-300">
+                <label className="block text-sm font-medium text-malta-200 mb-1">
                     Coffee Type:
                 </label>
-
                 <Select
                     value={formData.coffeeType?.id ?? ""}
                     onValueChange={(id) => handleCoffeeTypeChange(id)}
                 >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full bg-malta-950 border-malta-800 text-malta-100">
                         <SelectValue placeholder="Select a coffee" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white dark:bg-zinc-800 text-black dark:text-white">
+                    <SelectContent className="bg-malta-900 text-malta-100 border-malta-700">
                         {coffeeTypes.map((coffee) => (
                             <SelectItem key={coffee.id} value={coffee.id}>
                                 {coffee.name} — {coffee.roaster}
@@ -144,18 +143,23 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
                     </SelectContent>
                 </Select>
 
+                <label className="block text-sm font-medium text-malta-200 mb-1">
+                    Notes:
+                    <Textarea
+                        name="notes"
+                        value={formData.notes}
+                        onChange={handleChange}
+                        className="mt-1"
+                    />
+                </label>
 
-                <label>
-                Notes:
-                <Textarea
-                    name="notes"
-                    value={formData.notes}
-                    onChange={handleChange}
-                ></Textarea>
-            </label>
-
-            <Button type="submit" className="w-full">Save Brew</Button>
-        </form>
+                <Button
+                    type="submit"
+                    className="w-full bg-malta-700 hover:bg-malta-600 text-white font-medium rounded-md shadow"
+                >
+                    Save Brew
+                </Button>
+            </form>
         </div>
     );
 };
