@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -59,6 +59,8 @@ export default function CoffeeTypeForm({ onSubmit }: CoffeeTypeFormProps) {
 
 
     return (
+        <div className="max-w-xl mx-auto bg-malta-950 text-malta-100 rounded-2xl shadow-lg p-6 space-y-6">
+            <h2 className="text-3xl font-bold tracking-tight">Coffee Type</h2>
         <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
             <div>
                 <Label htmlFor="name">Coffee Name</Label>
@@ -107,5 +109,6 @@ export default function CoffeeTypeForm({ onSubmit }: CoffeeTypeFormProps) {
 
             <Button type="submit">Save Coffee</Button>
         </form>
+        </div>
     );
 }

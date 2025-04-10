@@ -23,35 +23,49 @@ export default function BrewChart({ brews }: Props) {
         count,
     }));
 
-
     return (
         <div className="mt-8">
-            <h2 className="text-xl font-semibold mt-8 mb-4">Brew Ratio Over Time</h2>
-            <div className="h-64 bg-zinc-900 p-4 rounded-xl shadow-md">
+            <h2 className="text-xl font-semibold mt-8 mb-4 text-malta-100">Brew Ratio Over Time</h2>
+            <div className="h-64 bg-malta-950 p-4 rounded-xl shadow-md">
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={ratioData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="timestamp" />
-                        <YAxis domain={[1.0, 3.0]} tickFormatter={(val) => val.toFixed(1)} />
-                        <Tooltip />
-                        <Line type="monotone" dataKey="ratio" stroke="#82ca9d" strokeWidth={2} dot />
+                        <CartesianGrid stroke="#3c2a24" strokeDasharray="3 3" />
+                        <XAxis dataKey="timestamp" stroke="#ddd5cb" />
+                        <YAxis domain={[1.0, 3.0]} tickFormatter={(val) => val.toFixed(1)} stroke="#ddd5cb" />
+                        <Tooltip
+                            contentStyle={{ backgroundColor: '#4b352d', border: 'none' }}
+                            labelStyle={{ color: '#ddd5cb' }}
+                            itemStyle={{ color: '#f8f6f4' }}
+                        />
+                        <Line
+                            type="monotone"
+                            dataKey="ratio"
+                            stroke="#927564"
+                            strokeWidth={2}
+                            dot={{ stroke: '#af9b88', strokeWidth: 2, fill: '#927564' }}
+                        />
                     </LineChart>
                 </ResponsiveContainer>
             </div>
-            <h2 className="text-4xl font-semibold mb-4 mt-4">Brews per Day</h2>
-            <div className="h-64 bg-zinc-900 p-4 rounded-xl shadow-md">
+
+            <h2 className="text-4xl font-semibold mb-4 mt-4 text-malta-100">Brews per Day</h2>
+            <div className="h-64 bg-malta-950 p-4 rounded-xl shadow-md">
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={brewsPerDayData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="date" />
-                        <YAxis allowDecimals={false} />
-                        <Tooltip />
+                        <CartesianGrid stroke="#3c2a24" strokeDasharray="3 3" />
+                        <XAxis dataKey="date" stroke="#ddd5cb" />
+                        <YAxis allowDecimals={false} stroke="#ddd5cb" />
+                        <Tooltip
+                            contentStyle={{ backgroundColor: '#4b352d', border: 'none' }}
+                            labelStyle={{ color: '#ddd5cb' }}
+                            itemStyle={{ color: '#f8f6f4' }}
+                        />
                         <Line
                             type="monotone"
                             dataKey="count"
-                            stroke="#38bdf8"
+                            stroke="#7a6054"
                             strokeWidth={2}
-                            dot
+                            dot={{ stroke: '#af9b88', strokeWidth: 2, fill: '#7a6054' }}
                         />
                     </LineChart>
                 </ResponsiveContainer>

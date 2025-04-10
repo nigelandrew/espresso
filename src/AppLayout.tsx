@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { Menu, X, History, BarChart2, Coffee } from "lucide-react";
+import { Menu, X, History, BarChart2, Coffee, ScrollText } from "lucide-react";
 import {
     Sheet,
     SheetTrigger,
@@ -17,7 +17,7 @@ export default function AppLayout() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-malta-950 text-malta-100">
+        <div className="min-h-screen flex flex-col bg-malta-800 text-malta-100">
             {/* Header */}
             <header className="w-full bg-malta-900 px-6 py-4 flex justify-between items-center shadow-md">
                 <h1 className="text-lg font-semibold">Espresso Tracker</h1>
@@ -30,6 +30,14 @@ export default function AppLayout() {
                             </SheetTrigger>
                             <SheetContent side="left" className="bg-malta-900 text-malta-100 w-64 p-4">
                                 <nav className="flex flex-col gap-6 mt-4">
+                                    <SheetClose asChild>
+                                        <button
+                                            onClick={() => handleMobileNavClick("/log")}
+                                            className="flex items-center gap-3 text-sm font-medium hover:text-malta-300"
+                                        >
+                                            <ScrollText className="h-5 w-5" /> Log Brew
+                                        </button>
+                                    </SheetClose>
                                     <SheetClose asChild>
                                         <button
                                             onClick={() => handleMobileNavClick("/history")}
@@ -85,6 +93,18 @@ export default function AppLayout() {
                     </button>
 
                     <nav className="flex flex-col gap-6">
+                        <NavLink
+                            to="/log"
+                            className={({ isActive }) =>
+                                `flex items-center gap-3 text-sm font-medium hover:text-malta-300 transition ${
+                                    isActive ? "text-malta-200" : "text-malta-100"
+                                }`
+                            }
+                        >
+                            <ScrollText className="h-5 w-5" />
+                            {sidebarOpen && "Log Brew"}
+                        </NavLink>
+
                         <NavLink
                             to="/history"
                             className={({ isActive }) =>

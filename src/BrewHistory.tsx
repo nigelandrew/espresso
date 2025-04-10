@@ -26,29 +26,47 @@ const BrewHistory: React.FC<BrewHistoryProps> = ({ brews, onDelete }) => {
     });
 
     return (
-        <div>
-            <div className="flex gap-4 mb-4">
-                <div>
-                    <label className="block text-sm font-medium mb-1">Start Date</label>
+        <div className="mb-6 bg-malta-950 p-4 rounded-xl shadow-md">
+            <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1">
+                    <label className="block text-sm font-medium text-malta-200 mb-1">
+                        Start Date
+                    </label>
                     <input
                         type="date"
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
-                        className="border rounded p-2 w-full"
+                        className="
+          w-full p-2 rounded-md
+          bg-malta-900 border border-malta-800
+          text-malta-100
+          focus:outline-none focus:ring-2 focus:ring-malta-400
+        "
                     />
                 </div>
-                <div>
-                    <label className="block text-sm font-medium mb-1">End Date</label>
+                <div className="flex-1">
+                    <label className="block text-sm font-medium text-malta-200 mb-1">
+                        End Date
+                    </label>
                     <input
                         type="date"
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
-                        className="border rounded p-2 w-full"
+                        className="
+          w-full p-2 rounded-md
+          bg-malta-900 border border-malta-800
+          text-malta-100
+          focus:outline-none focus:ring-2 focus:ring-malta-400
+        "
                     />
                 </div>
             </div>
-            <BrewTable brews={filteredBrews} onDelete={onDelete} />
+
+            <div className="mt-4">
+                <BrewTable brews={filteredBrews} onDelete={onDelete} />
+            </div>
         </div>
+
     );
 };
 
