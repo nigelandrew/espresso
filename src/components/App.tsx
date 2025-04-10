@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import BrewForm from './BrewForm';
-import BrewHistory from './BrewHistory';
-import CoffeeTypeForm from './CoffeeTypeForm';
-import BrewChart from "./BrewChart";
-import { Toaster, toast } from 'sonner';
-import { Brew } from "./types/brew.ts"
-import AppLayout from "./AppLayout";
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+import BrewForm from './BrewForm.tsx';
+import BrewHistory from './BrewHistory.tsx';
+import CoffeeTypeForm from './CoffeeTypeForm.tsx';
+import BrewChart from "./BrewChart.tsx";
+import {Toaster, toast} from 'sonner';
+import {Brew} from "../types/brew.ts"
+import AppLayout from "./AppLayout.tsx";
 
 function App() {
     const [brews, setBrews] = useState<Brew[]>([]);
@@ -22,7 +22,7 @@ function App() {
         try {
             await fetch('http://localhost:4000/brews', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(brew),
             });
 
@@ -56,16 +56,17 @@ function App() {
         <>
             <Router>
                 <Routes>
-                    <Route element={<AppLayout />}>
-                        <Route path="/" element={<Navigate to="/log" replace />} />
-                        <Route path="/log" element={<BrewForm onSubmitBrew={addBrew} />} />
-                        <Route path="/history" element={<BrewHistory brews={brews} onDelete={deleteBrew} />} />
-                        <Route path="/charts" element={<BrewChart brews={brews} />} />
-                        <Route path="/coffee-types" element={<CoffeeTypeForm onSubmit={(coffee) => console.log(coffee)} />} />
+                    <Route element={<AppLayout/>}>
+                        <Route path="/" element={<Navigate to="/log" replace/>}/>
+                        <Route path="/log" element={<BrewForm onSubmitBrew={addBrew}/>}/>
+                        <Route path="/history" element={<BrewHistory brews={brews} onDelete={deleteBrew}/>}/>
+                        <Route path="/charts" element={<BrewChart brews={brews}/>}/>
+                        <Route path="/coffee-types"
+                               element={<CoffeeTypeForm onSubmit={(coffee) => console.log(coffee)}/>}/>
                     </Route>
                 </Routes>
             </Router>
-    <Toaster/>
+            <Toaster/>
         </>
     );
 }

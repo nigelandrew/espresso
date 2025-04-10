@@ -1,16 +1,16 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { Brew } from "@/types/brew";
-import { CoffeeType } from "@/types/coffee";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import React, {useState, useEffect, ChangeEvent, FormEvent} from 'react';
+import {Brew} from "@/types/brew.ts";
+import {CoffeeType} from "@/types/coffee.ts";
+import {Input} from "@/components/ui/input.tsx";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
+import {Textarea} from "@/components/ui/textarea.tsx";
+import {Button} from "@/components/ui/button.tsx";
 
 type BrewFormProps = {
     onSubmitBrew: (brew: Omit<Brew, 'timestamp' | 'id'>) => void;
 };
 
-const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
+const BrewForm: React.FC<BrewFormProps> = ({onSubmitBrew}) => {
     const [coffeeTypes, setCoffeeTypes] = useState<CoffeeType[]>([]);
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
     const numberFields = new Set(['coffeeWeight', 'brewTime', 'yieldWeight']);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         const newValue = numberFields.has(name) ? Number(value) : value;
 
         setFormData((prev) => ({
@@ -47,7 +47,7 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
 
     const handleCoffeeTypeChange = (id: string) => {
         const selected = coffeeTypes.find((ct) => ct.id === id);
-        setFormData((prev) => ({ ...prev, coffeeType: selected }));
+        setFormData((prev) => ({...prev, coffeeType: selected}));
     };
 
     const handleSubmit = (e: FormEvent) => {
@@ -190,7 +190,7 @@ const BrewForm: React.FC<BrewFormProps> = ({ onSubmitBrew }) => {
                     onValueChange={(id) => handleCoffeeTypeChange(id)}
                 >
                     <SelectTrigger className="w-full bg-malta-950 border-malta-800 text-malta-100">
-                        <SelectValue placeholder="Select a coffee" />
+                        <SelectValue placeholder="Select a coffee"/>
                     </SelectTrigger>
                     <SelectContent className="bg-malta-900 text-malta-100 border-malta-700">
                         {coffeeTypes.map((coffee) => (

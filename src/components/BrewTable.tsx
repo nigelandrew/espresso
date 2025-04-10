@@ -5,16 +5,16 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table.tsx"
 
-import { Brew } from "@/types/brew";
+import {Brew} from "@/types/brew.ts";
 
 type Props = {
     brews: Brew[];
     onDelete: (timestamp: string) => void;
 }
 
-export default function BrewTable({ brews, onDelete }: Props) {
+export default function BrewTable({brews, onDelete}: Props) {
     const sortedBrews = [...brews].sort(
         (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
     )

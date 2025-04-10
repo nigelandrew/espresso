@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { Menu, X, History, BarChart2, Coffee, ScrollText } from "lucide-react";
+import {useState} from "react";
+import {NavLink, Outlet, useNavigate} from "react-router-dom";
+import {Menu, X, History, BarChart2, Coffee, ScrollText} from "lucide-react";
 import {
     Sheet,
     SheetTrigger,
     SheetContent,
     SheetClose,
-} from "@/components/ui/sheet";
+} from "@/components/ui/sheet.tsx";
 
 export default function AppLayout() {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -26,7 +26,7 @@ export default function AppLayout() {
                     <div className="sm:hidden">
                         <Sheet>
                             <SheetTrigger>
-                                <Menu className="h-6 w-6" />
+                                <Menu className="h-6 w-6"/>
                             </SheetTrigger>
                             <SheetContent side="left" className="bg-malta-900 text-malta-100 w-64 p-4">
                                 <nav className="flex flex-col gap-6 mt-4">
@@ -35,7 +35,7 @@ export default function AppLayout() {
                                             onClick={() => handleMobileNavClick("/log")}
                                             className="flex items-center gap-3 text-sm font-medium hover:text-malta-300"
                                         >
-                                            <ScrollText className="h-5 w-5" /> Log Brew
+                                            <ScrollText className="h-5 w-5"/> Log Brew
                                         </button>
                                     </SheetClose>
                                     <SheetClose asChild>
@@ -43,7 +43,7 @@ export default function AppLayout() {
                                             onClick={() => handleMobileNavClick("/history")}
                                             className="flex items-center gap-3 text-sm font-medium hover:text-malta-300"
                                         >
-                                            <History className="h-5 w-5" /> History
+                                            <History className="h-5 w-5"/> History
                                         </button>
                                     </SheetClose>
                                     <SheetClose asChild>
@@ -51,7 +51,7 @@ export default function AppLayout() {
                                             onClick={() => handleMobileNavClick("/charts")}
                                             className="flex items-center gap-3 text-sm font-medium hover:text-malta-300"
                                         >
-                                            <BarChart2 className="h-5 w-5" /> Charts
+                                            <BarChart2 className="h-5 w-5"/> Charts
                                         </button>
                                     </SheetClose>
                                     <SheetClose asChild>
@@ -59,7 +59,7 @@ export default function AppLayout() {
                                             onClick={() => handleMobileNavClick("/coffee-types")}
                                             className="flex items-center gap-3 text-sm font-medium hover:text-malta-300"
                                         >
-                                            <Coffee className="h-5 w-5" /> Coffee Types
+                                            <Coffee className="h-5 w-5"/> Coffee Types
                                         </button>
                                     </SheetClose>
                                 </nav>
@@ -70,7 +70,7 @@ export default function AppLayout() {
                     {/* Desktop "Log Brew" button */}
                     <NavLink
                         to="/log"
-                        className={({ isActive }) =>
+                        className={({isActive}) =>
                             `hidden sm:inline-block text-sm font-medium px-4 py-2 rounded-full transition duration-200 ${
                                 isActive ? "bg-malta-600 text-white" : "bg-malta-800 text-malta-100 hover:bg-malta-700"
                             }`
@@ -89,55 +89,55 @@ export default function AppLayout() {
                     } bg-malta-900 transition-all duration-300 hidden sm:flex flex-col p-4`}
                 >
                     <button onClick={() => setSidebarOpen(!sidebarOpen)} className="mb-6 self-end">
-                        {sidebarOpen ? <X /> : <Menu />}
+                        {sidebarOpen ? <X/> : <Menu/>}
                     </button>
 
                     <nav className="flex flex-col gap-6">
                         <NavLink
                             to="/log"
-                            className={({ isActive }) =>
+                            className={({isActive}) =>
                                 `flex items-center gap-3 text-sm font-medium hover:text-malta-300 transition ${
                                     isActive ? "text-malta-200" : "text-malta-100"
                                 }`
                             }
                         >
-                            <ScrollText className="h-5 w-5" />
+                            <ScrollText className="h-5 w-5"/>
                             {sidebarOpen && "Log Brew"}
                         </NavLink>
 
                         <NavLink
                             to="/history"
-                            className={({ isActive }) =>
+                            className={({isActive}) =>
                                 `flex items-center gap-3 text-sm font-medium hover:text-malta-300 transition ${
                                     isActive ? "text-malta-200" : "text-malta-100"
                                 }`
                             }
                         >
-                            <History className="h-5 w-5" />
+                            <History className="h-5 w-5"/>
                             {sidebarOpen && "History"}
                         </NavLink>
 
                         <NavLink
                             to="/charts"
-                            className={({ isActive }) =>
+                            className={({isActive}) =>
                                 `flex items-center gap-3 text-sm font-medium hover:text-malta-300 transition ${
                                     isActive ? "text-malta-200" : "text-malta-100"
                                 }`
                             }
                         >
-                            <BarChart2 className="h-5 w-5" />
+                            <BarChart2 className="h-5 w-5"/>
                             {sidebarOpen && "Charts"}
                         </NavLink>
 
                         <NavLink
                             to="/coffee-types"
-                            className={({ isActive }) =>
+                            className={({isActive}) =>
                                 `flex items-center gap-3 text-sm font-medium hover:text-malta-300 transition ${
                                     isActive ? "text-malta-200" : "text-malta-100"
                                 }`
                             }
                         >
-                            <Coffee className="h-5 w-5" />
+                            <Coffee className="h-5 w-5"/>
                             {sidebarOpen && "Coffee Types"}
                         </NavLink>
                     </nav>
@@ -145,7 +145,7 @@ export default function AppLayout() {
 
                 {/* Main content */}
                 <main className="flex-1 overflow-y-auto p-6">
-                    <Outlet />
+                    <Outlet/>
                 </main>
             </div>
         </div>

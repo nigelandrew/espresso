@@ -1,14 +1,14 @@
 import React from 'react';
-import { Brew } from '@/types/brew.ts';
-import BrewTable from './BrewTable';
-import { useState } from "react";
+import {Brew} from '@/types/brew.ts';
+import BrewTable from './BrewTable.tsx';
+import {useState} from "react";
 
 type BrewHistoryProps = {
     brews: Brew[];
     onDelete: (id: string) => void;
 };
 
-const BrewHistory: React.FC<BrewHistoryProps> = ({ brews, onDelete }) => {
+const BrewHistory: React.FC<BrewHistoryProps> = ({brews, onDelete}) => {
     const [startDate, setStartDate] = useState<string>("");
     const [endDate, setEndDate] = useState<string>("");
 
@@ -63,7 +63,7 @@ const BrewHistory: React.FC<BrewHistoryProps> = ({ brews, onDelete }) => {
             </div>
 
             <div className="mt-4">
-                <BrewTable brews={filteredBrews} onDelete={onDelete} />
+                <BrewTable brews={filteredBrews} onDelete={onDelete}/>
             </div>
         </div>
 
