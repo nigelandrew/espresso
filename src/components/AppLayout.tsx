@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {NavLink, Outlet, useNavigate} from "react-router-dom";
-import {Menu, X, History, BarChart2, Coffee, ScrollText} from "lucide-react";
+import {Menu, X, History, BarChart2, Coffee, ScrollText, Wrench} from "lucide-react";
 import {SidebarLink} from "@/components/SidebarLink.tsx";
 import {
     Sheet,
@@ -120,6 +120,13 @@ export default function AppLayout() {
                             to="/coffee-types"
                             icon={<Coffee className="h-5 w-5"/>}
                             label="Coffee Types"
+                            sidebarOpen={sidebarOpen}
+                        />
+
+                        <SidebarLink
+                            to="/maintenance"
+                            icon={<Wrench className="h-5 w-5"/>}
+                            label="Maintenance"
                             sidebarOpen={sidebarOpen}
                         />
                     </nav>

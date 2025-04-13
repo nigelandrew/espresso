@@ -15,7 +15,7 @@ export function SidebarLink({to, icon, label, sidebarOpen}: SidebarLinkProps) {
             className={({isActive}) =>
                 cn(
                     "flex items-center justify-start gap-3 text-sm font-medium hover:text-malta-300 transition-all duration-300",
-                    isActive ? "text-malta-200" : "text-malta-100"
+                    isActive ? "text-malta-300" : "text-malta-100"
                 )
             }
         >

@@ -4,6 +4,7 @@ import BrewForm from './BrewForm.tsx';
 import BrewHistory from './BrewHistory.tsx';
 import CoffeeTypeForm from './CoffeeTypeForm.tsx';
 import BrewChart from "./BrewChart.tsx";
+import MaintenanceForm from "./MaintenanceForm.tsx";
 import {Toaster, toast} from 'sonner';
 import {Brew} from "../types/brew.ts"
 import AppLayout from "./AppLayout.tsx";
@@ -62,7 +63,8 @@ function App() {
                         <Route path="/history" element={<BrewHistory brews={brews} onDelete={deleteBrew}/>}/>
                         <Route path="/charts" element={<BrewChart brews={brews}/>}/>
                         <Route path="/coffee-types"
-                               element={<CoffeeTypeForm onSubmit={(coffee) => console.log(coffee)}/>}/>
+                               element={<CoffeeTypeForm onSubmit={() => void 0}/>}/>
+                        <Route path="/maintenance" element={<MaintenanceForm onSubmitMaintenance={() => {}} />}/>
                     </Route>
                 </Routes>
             </Router>
