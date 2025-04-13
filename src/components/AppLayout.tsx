@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {NavLink, Outlet, useNavigate} from "react-router-dom";
 import {Menu, X, History, BarChart2, Coffee, ScrollText} from "lucide-react";
+import {SidebarLink} from "@/components/SidebarLink.tsx";
 import {
     Sheet,
     SheetTrigger,
@@ -84,62 +85,43 @@ export default function AppLayout() {
             <div className="flex flex-1 overflow-hidden">
                 {/* Sidebar - Desktop only */}
                 <aside
-                    className={`${
-                        sidebarOpen ? "w-64" : "w-20"
-                    } bg-malta-900 transition-all duration-300 hidden sm:flex flex-col p-4`}
+                    style={{width: sidebarOpen ? '14rem' : '3.5rem'}}  // 64px or 20px → rems
+                    className="bg-malta-900 transition-[width] duration-300 ease-in-out hidden sm:flex flex-col p-4"
+
                 >
-                    <button onClick={() => setSidebarOpen(!sidebarOpen)} className={`flex ${sidebarOpen ? 'justify-end' : 'justify-center'} mb-6`}>
+                    <button onClick={() => setSidebarOpen(!sidebarOpen)}
+                            className={`flex ${sidebarOpen ? 'justify-end' : 'justify-start'} mb-6`}>
                         {sidebarOpen ? <X/> : <Menu/>}
                     </button>
 
                     <nav className="flex flex-col gap-6">
-                        <NavLink
+                        <SidebarLink
                             to="/log"
-                            className={({isActive}) =>
-                                `flex items-center ${sidebarOpen ? 'justify-start' : 'justify-center'} gap-3 text-sm font-medium hover:text-malta-300 transition ${
-                                    isActive ? 'text-malta-200' : 'text-malta-100'
-                                }`
-                            }
-                        >
-                            <ScrollText className="h-5 w-5"/>
-                            {sidebarOpen && "Log Brew"}
-                        </NavLink>
+                            icon={<ScrollText className="h-5 w-5"/>}
+                            label="Log Brew"
+                            sidebarOpen={sidebarOpen}
+                        />
 
-                        <NavLink
+                        <SidebarLink
                             to="/history"
-                            className={({isActive}) =>
-                                `flex items-center ${sidebarOpen ? 'justify-start' : 'justify-center'} gap-3 text-sm font-medium hover:text-malta-300 transition ${
-                                    isActive ? 'text-malta-200' : 'text-malta-100'
-                                }`
-                            }
-                        >
-                            <History className="h-5 w-5"/>
-                            {sidebarOpen && "History"}
-                        </NavLink>
+                            icon={<History className="h-5 w-5"/>}
+                            label="History"
+                            sidebarOpen={sidebarOpen}
+                        />
 
-                        <NavLink
+                        <SidebarLink
                             to="/charts"
-                            className={({isActive}) =>
-                                `flex items-center ${sidebarOpen ? 'justify-start' : 'justify-center'} gap-3 text-sm font-medium hover:text-malta-300 transition ${
-                                    isActive ? 'text-malta-200' : 'text-malta-100'
-                                }`
-                            }
-                        >
-                            <BarChart2 className="h-5 w-5"/>
-                            {sidebarOpen && "Charts"}
-                        </NavLink>
+                            icon={<BarChart2 className="h-5 w-5"/>}
+                            label="Charts"
+                            sidebarOpen={sidebarOpen}
+                        />
 
-                        <NavLink
+                        <SidebarLink
                             to="/coffee-types"
-                            className={({isActive}) =>
-                                `flex items-center ${sidebarOpen ? 'justify-start' : 'justify-center'} gap-3 text-sm font-medium hover:text-malta-300 transition ${
-                                    isActive ? 'text-malta-200' : 'text-malta-100'
-                                }`
-                            }
-                        >
-                            <Coffee className="h-5 w-5"/>
-                            {sidebarOpen && "Coffee Types"}
-                        </NavLink>
+                            icon={<Coffee className="h-5 w-5"/>}
+                            label="Coffee Types"
+                            sidebarOpen={sidebarOpen}
+                        />
                     </nav>
                 </aside>
 
