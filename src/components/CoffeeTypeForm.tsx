@@ -63,34 +63,83 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
             <h2 className="text-3xl font-bold tracking-tight">Coffee Type</h2>
             <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
                 <div>
-                    <Label htmlFor="name">Coffee Name</Label>
-                    <Input id="name" name="name" value={formData.name} onChange={handleChange}/>
+                    <Label htmlFor="name" className="block text-sm font-medium text-malta-200 mb-1">Coffee Name</Label>
+                    <Input id="name" name="name" value={formData.name} onChange={handleChange} className="
+                        transition-all
+                        duration-200
+                        focus:ring-2
+                        focus:ring-malta-400
+                        w-full
+                        appearance-none
+                        [&::-webkit-outer-spin-button]:appearance-none
+                        [&::-webkit-inner-spin-button]:appearance-none
+                        [moz-appearance:textfield]
+                        "/>
                 </div>
 
                 <div>
-                    <Label htmlFor="roaster">Roaster</Label>
-                    <Input id="roaster" name="roaster" value={formData.roaster} onChange={handleChange}/>
+                    <Label htmlFor="roaster" className="block text-sm font-medium text-malta-200 mb-1">Roaster</Label>
+                    <Input id="roaster" name="roaster" value={formData.roaster} onChange={handleChange} className="
+                        transition-all
+                        duration-200
+                        focus:ring-2
+                        focus:ring-malta-400
+                        w-full
+                        appearance-none
+                        [&::-webkit-outer-spin-button]:appearance-none
+                        [&::-webkit-inner-spin-button]:appearance-none
+                        [moz-appearance:textfield]
+                        "/>
                 </div>
 
                 <div>
-                    <Label htmlFor="originLocation">Origin Location</Label>
+                    <Label htmlFor="originLocation" className="block text-sm font-medium text-malta-200 mb-1">Origin Location</Label>
                     <Input id="originLocation" name="originLocation" value={formData.originLocation}
-                           onChange={handleChange}/>
+                           onChange={handleChange} className="
+                        transition-all
+                        duration-200
+                        focus:ring-2
+                        focus:ring-malta-400
+                        w-full
+                        appearance-none
+                        [&::-webkit-outer-spin-button]:appearance-none
+                        [&::-webkit-inner-spin-button]:appearance-none
+                        [moz-appearance:textfield]
+                        "/>
                 </div>
 
                 <div>
-                    <Label htmlFor="elevation">Elevation</Label>
-                    <Input id="elevation" name="elevation" value={formData.elevation} onChange={handleChange}/>
+                    <Label htmlFor="elevation" className="block text-sm font-medium text-malta-200 mb-1">Elevation</Label>
+                    <Input id="elevation" name="elevation" value={formData.elevation} onChange={handleChange} className="
+                        transition-all
+                        duration-200
+                        focus:ring-2
+                        focus:ring-malta-400
+                        w-full
+                        appearance-none
+                        [&::-webkit-outer-spin-button]:appearance-none
+                        [&::-webkit-inner-spin-button]:appearance-none
+                        [moz-appearance:textfield]
+                        "/>
                 </div>
 
                 <div>
-                    <Label htmlFor="roastLevel">Roast Level</Label>
+                    <Label htmlFor="roastLevel" className="block text-sm font-medium text-malta-200 mb-1">Roast Level</Label>
                     <select
                         id="roastLevel"
                         name="roastLevel"
                         value={formData.roastLevel}
                         onChange={handleChange}
-                        className="w-full border rounded p-2"
+                        className="w-full border rounded p-2
+                        transition-all
+                        duration-200
+                        focus:ring-2
+                        focus:ring-malta-400
+                        appearance-none
+                    [&::-webkit-outer-spin-button]:appearance-none
+                    [&::-webkit-inner-spin-button]:appearance-none
+                    [moz-appearance:textfield]
+                    "
                     >
                         <option value="light">Light</option>
                         <option value="medium">Medium</option>
@@ -99,16 +148,27 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
                 </div>
 
                 <div>
-                    <Label htmlFor="flavorNotes">Flavor Notes</Label>
+                    <Label htmlFor="flavorNotes" className="block text-sm font-medium text-malta-200 mb-1">Flavor Notes</Label>
                     <Textarea
                         id="flavorNotes"
                         name="flavorNotes"
                         value={formData.flavorNotes}
                         onChange={handleChange}
+                        className="
+                        transition-all
+                        duration-200
+                        focus:ring-2
+                        focus:ring-malta-400
+                        w-full
+                        appearance-none
+                        [&::-webkit-outer-spin-button]:appearance-none
+                        [&::-webkit-inner-spin-button]:appearance-none
+                        [moz-appearance:textfield]
+                        "
                     />
                 </div>
 
-                <Button type="submit">Save Coffee</Button>
+                <Button type="submit" className="w-full bg-malta-700 hover:bg-malta-600 text-white font-medium rounded-md shadow">Save Coffee</Button>
             </form>
         </div>
     );
