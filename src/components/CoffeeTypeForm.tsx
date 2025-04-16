@@ -1,13 +1,14 @@
-import React, {useState} from "react";
+import {useState} from "react";
+import {v4 as uuidv4} from "uuid";
 import {Input} from "@/components/ui/input.tsx";
 import {Label} from "@/components/ui/label.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
-import {v4 as uuidv4} from "uuid";
 import {CoffeeType} from "@/types/coffee.ts";
+import {createCoffeeType} from "../../api/CoffeeAPI.ts"
 
 type CoffeeTypeFormProps = {
-    onSubmit: (coffee: CoffeeType) => void;
+    onSubmit?: (coffee: CoffeeType) => void;
 };
 
 export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
@@ -20,6 +21,8 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
         flavorNotes: "",
     });
 
+    const [error, setError] = useState<string | null>(null);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const {name, value} = e.target;
         setFormData((prev) => ({
@@ -31,19 +34,12 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const fullCoffeeType = {...formData, id: uuidv4()};
-        onSubmit(fullCoffeeType);
+        const fullCoffeeType: CoffeeType = {...formData, id: uuidv4()};
 
         try {
-            const res = await fetch("http://localhost:4000/coffee-types", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(fullCoffeeType),
-            });
+            const saved = await createCoffeeType(fullCoffeeType);
+            onSubmit?.(saved);
 
-            if (!res.ok) throw new Error();
-
-            // Reset form
             setFormData({
                 name: "",
                 roaster: "",
@@ -52,16 +48,22 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
                 roastLevel: "medium",
                 flavorNotes: "",
             });
-        } catch {
-            console.log("Error! Cannot post coffee type from CoffeeTypeForm.tsx");
+
+            setError(null);
+        } catch (err) {
+            console.error(err);
+            setError("Could not save coffee type. Please try again.");
         }
     };
-
 
     return (
         <div className="max-w-xl mx-auto bg-malta-950 text-malta-100 rounded-2xl shadow-lg p-6 space-y-6">
             <h2 className="text-3xl font-bold tracking-tight">Coffee Type</h2>
             <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
+                {error && (
+                    <p className="text-red-400 text-sm font-medium mb-2">{error}</p>
+                )}
+
                 <div>
                     <Label htmlFor="name" className="block text-sm font-medium text-malta-200 mb-1">Coffee Name</Label>
                     <Input id="name" name="name" value={formData.name} onChange={handleChange} className="
@@ -93,7 +95,8 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
                 </div>
 
                 <div>
-                    <Label htmlFor="originLocation" className="block text-sm font-medium text-malta-200 mb-1">Origin Location</Label>
+                    <Label htmlFor="originLocation" className="block text-sm font-medium text-malta-200 mb-1">Origin
+                        Location</Label>
                     <Input id="originLocation" name="originLocation" value={formData.originLocation}
                            onChange={handleChange} className="
                         transition-all
@@ -109,8 +112,10 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
                 </div>
 
                 <div>
-                    <Label htmlFor="elevation" className="block text-sm font-medium text-malta-200 mb-1">Elevation</Label>
-                    <Input id="elevation" name="elevation" value={formData.elevation} onChange={handleChange} className="
+                    <Label htmlFor="elevation"
+                           className="block text-sm font-medium text-malta-200 mb-1">Elevation</Label>
+                    <Input id="elevation" name="elevation" value={formData.elevation} onChange={handleChange}
+                           className="
                         transition-all
                         duration-200
                         focus:ring-2
@@ -124,7 +129,8 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
                 </div>
 
                 <div>
-                    <Label htmlFor="roastLevel" className="block text-sm font-medium text-malta-200 mb-1">Roast Level</Label>
+                    <Label htmlFor="roastLevel" className="block text-sm font-medium text-malta-200 mb-1">Roast
+                        Level</Label>
                     <select
                         id="roastLevel"
                         name="roastLevel"
@@ -148,7 +154,8 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
                 </div>
 
                 <div>
-                    <Label htmlFor="flavorNotes" className="block text-sm font-medium text-malta-200 mb-1">Flavor Notes</Label>
+                    <Label htmlFor="flavorNotes" className="block text-sm font-medium text-malta-200 mb-1">Flavor
+                        Notes</Label>
                     <Textarea
                         id="flavorNotes"
                         name="flavorNotes"
@@ -168,8 +175,11 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
                     />
                 </div>
 
-                <Button type="submit" className="w-full bg-malta-700 hover:bg-malta-600 text-white font-medium rounded-md shadow">Save Coffee</Button>
+                <Button type="submit"
+                        className="w-full bg-malta-700 hover:bg-malta-600 text-white font-medium rounded-md shadow">
+                    Save Coffee
+                </Button>
             </form>
         </div>
     );
-}
+};
