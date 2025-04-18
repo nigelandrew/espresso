@@ -20,7 +20,7 @@ export default function AppLayout() {
     return (
         <div className="min-h-screen flex flex-col bg-malta-800 text-malta-100">
             {/* Header */}
-            <header className="w-full bg-malta-925 px-6 py-4 flex justify-between items-center shadow-md">
+            <header className="w-full bg-malta-925 px-6 py-4 flex justify-between items-center shadow-md sticky top-0 z-50">
                 <h1 className="text-lg font-semibold">Espresso Tracker</h1>
                 <div className="flex gap-2 items-center">
                     {/* Mobile menu button */}
@@ -82,12 +82,11 @@ export default function AppLayout() {
                 </div>
             </header>
 
-            <div className="flex flex-1 overflow-hidden">
+            <div className="flex h-[calc(100vh-4.5rem)]">
                 {/* Sidebar - Desktop only */}
                 <aside
-                    style={{width: sidebarOpen ? '14rem' : '3.5rem'}}  // 64px or 20px → rems
-                    className="bg-malta-900 transition-[width] duration-300 ease-in-out hidden sm:flex flex-col p-4"
-
+                    style={{ width: sidebarOpen ? '14rem' : '3.5rem' }}
+                    className="sticky top-0 self-start h-[calc(100vh-4.5rem)] bg-malta-900 transition-[width] duration-300 ease-in-out hidden sm:flex flex-col p-4"
                 >
                     <button onClick={() => setSidebarOpen(!sidebarOpen)}
                             className={`flex ${sidebarOpen ? 'justify-end' : 'justify-start'} mb-6`}>
