@@ -113,6 +113,7 @@ app.delete('/brews/:id', (req, res) => {
 })
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`☕ Brew backend running at http://localhost:${PORT}`);
 });
+

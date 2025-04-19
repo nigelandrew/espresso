@@ -9,22 +9,24 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Stage 2: Serve built frontend + run json-server
+# Stage 2: Run frontend + custom Express backend
 FROM node:18
 
 WORKDIR /app
 
-# Install json-server and static file server
-RUN npm install -g json-server serve
+# Install production dependencies
+COPY package*.json ./
+RUN npm install --omit=dev
 
-# Copy build output from previous stage
+# Copy frontend build and backend files
 COPY --from=builder /app/dist ./dist
+COPY server ./server
 
-# Copy db.json for json-server
-COPY ./server/db.json ./db.json
+# Install backend deps (express, cors, uuid)
+RUN npm install express cors uuid
 
-# Run frontend and API together
-CMD concurrently "serve -s dist -l 3000" "json-server --watch db.json --port 4000"
+# Install static file server
+RUN npm install -g serve
 
-# Install concurrently to run both commands in one container
-RUN npm install -g concurrently
+# Run backend and frontend together
+CMD npx concurrently "serve -s dist -l 3000" "node server/server.js"

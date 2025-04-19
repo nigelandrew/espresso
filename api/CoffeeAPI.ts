@@ -1,17 +1,12 @@
-import {CoffeeType} from "../src/types/coffee.ts";
+import {CoffeeType} from "@/types/coffee";
 
-const API_BASE_URL = "http://localhost:4000";
+const API_BASE_URL = "http://localhost:4000"; // or host.docker.internal if frontend is in Docker
 
-export async function createCoffeeType(coffee: CoffeeType): Promise<CoffeeType> {
+export async function createCoffeeType(coffee: CoffeeType): Promise<void> {
     const res = await fetch(`${API_BASE_URL}/coffee-types`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(coffee),
     });
-
-    if (!res.ok) {
-        throw new Error("Failed to create coffee type");
-    }
-
-    return res.json();
+    return await res.json();
 }
