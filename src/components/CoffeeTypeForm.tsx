@@ -6,10 +6,12 @@ import {Button} from "@/components/ui/button.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {CoffeeType} from "@/types/coffee.ts";
 import {createCoffeeType} from "../../api/CoffeeAPI.ts"
+import { toast } from 'sonner';
 
 type CoffeeTypeFormProps = {
     onSubmit?: (coffee: CoffeeType) => void;
 };
+
 
 export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
     const [formData, setFormData] = useState<Omit<CoffeeType, "id">>({
@@ -40,6 +42,8 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
             const saved = await createCoffeeType(fullCoffeeType);
             onSubmit?.(saved);
 
+            toast.success(`${formData.name} by ${formData.roaster} added successfully.`);
+
             setFormData({
                 name: "",
                 roaster: "",
@@ -52,6 +56,9 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
             setError(null);
         } catch (err) {
             console.error(err);
+
+            toast.error( "Could not save coffee type. Please try again.");
+
             setError("Could not save coffee type. Please try again.");
         }
     };
