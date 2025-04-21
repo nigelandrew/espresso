@@ -63,3 +63,37 @@ npm install
 
 # 2. Run frontend in dev mode
 npm run dev
+```
+Backend (server.js) runs separately:
+
+```bash
+# 3. In another terminal tab
+node server/server.js
+```
+Then visit http://localhost:5173
+
+### 🐳 Docker
+You can also run the app fully containerized:
+
+```bash
+docker compose up --build
+```
+
+Access app at http://localhost:3000
+API served at http://localhost:4000
+
+## 🛣 Roadmap
+
+- ✅ Coffee type management
+- ✅ Brew tracking and charting
+- ✅ Sidebar + mobile navigation
+- ✅ Responsive layout + dark mode
+- ⬜ Machine maintenance form
+- ⬜ User settings / preferences
+- ⬜ SQLite migration option
+- ⬜ Optional cloud backup or export
+- ⬜ PWA for offline use
+
+### 👥 Contributing
+
+This is a personal learning project — but if you’re an espresso data nerd with UI/UX chops or analytics ideas, feel free to fork and submit a PR or issue!
