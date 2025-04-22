@@ -3,6 +3,7 @@ import {Maintenance} from "@/types/maintenance.ts";
 import {Input} from "@/components/ui/input.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {Button} from "@/components/ui/button.tsx";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
 
 type MaintenanceFormProps = {
     onSubmitMaintenance: (maintenance: Omit<Maintenance, 'id'>) => void;
@@ -11,7 +12,7 @@ type MaintenanceFormProps = {
 export default function MaintenanceForm({onSubmitMaintenance}: MaintenanceFormProps) {
     const [formData, setFormData] = useState<Omit<Maintenance, 'id'>>({
         maintenanceDate: new Date().toISOString().slice(0, 10),  // prefill today's date
-        type: "",
+        maintenanceType: "",
         notes: "",
     });
 
@@ -25,7 +26,7 @@ export default function MaintenanceForm({onSubmitMaintenance}: MaintenanceFormPr
         onSubmitMaintenance(formData);
         setFormData({
             maintenanceDate: new Date().toISOString().slice(0, 10),
-            type: "",
+            maintenanceType: "",
             notes: "",
         });
     };
@@ -47,13 +48,25 @@ export default function MaintenanceForm({onSubmitMaintenance}: MaintenanceFormPr
 
                 <label className="block text-sm font-medium text-malta-200 mb-1">
                     Maintenance Type:
-                    <Input
-                        type="text"
-                        name="type"
-                        value={formData.type}
-                        onChange={handleChange}
-                    />
                 </label>
+                <Select
+                    value={formData.maintenanceType}
+                    onValueChange={(value) =>
+                        setFormData((prev) => ({ ...prev, maintenanceType: value }))
+                    }
+                >
+                    <SelectTrigger className="w-full bg-malta-950 border-malta-800 text-malta-100">
+                        <SelectValue placeholder="Select maintenance type" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-malta-900 text-malta-100 border-malta-700">
+                        <SelectItem value="descale">Descale</SelectItem>
+                        <SelectItem value="backflush">Backflush</SelectItem>
+                        <SelectItem value="grouphead-clean">Grouphead Clean</SelectItem>
+                        <SelectItem value="gasket-replace">Gasket Replacement</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                </Select>
+
 
                 <label className="block text-sm font-medium text-malta-200 mb-1">
                     Notes:

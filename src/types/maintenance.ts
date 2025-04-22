@@ -1,6 +1,6 @@
 export type Maintenance = {
     id: string;
     maintenanceDate: string;  // ISO string
-    type: string;            // e.g. "Descale", "Grouphead Cleaning", etc.
+    maintenanceType: string;
     notes: string;
 };
