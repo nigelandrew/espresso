@@ -49,15 +49,23 @@ export function RoastLevelSelector({ value, onChange }: Props) {
                         <RadioGroupItem
                             value={level}
                             id={level}
-                            className="peer sr-only"
+                            className="peer opacity-0 absolute"
                         />
                         <label
                             htmlFor={level}
-                            className={`cursor-pointer transition hover:scale-105 peer-checked:scale-110 ${roastLevelColors[i]} flex flex-col items-center`}
+                            className={`
+    cursor-pointer flex flex-col items-center transition
+    hover:scale-105 peer-checked:scale-110
+    ${roastLevelColors[i]}
+    peer-checked:text-malta-400
+    peer-checked:border-2 peer-checked:border-malta-400
+    rounded-full p-2
+  `}
                         >
                             <Icon iconNode={coffeeBean} className="h-6 w-6" />
                             <span className="text-xs mt-1 text-center">{labels[level]}</span>
                         </label>
+
                     </div>
                 ))}
             </RadioGroup>
