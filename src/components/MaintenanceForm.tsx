@@ -39,6 +39,17 @@ export default function MaintenanceForm({onSubmitMaintenance}: MaintenanceFormPr
                 <label className="block text-sm font-medium text-malta-200 mb-1">
                     Maintenance Date:
                     <Input
+                        className="
+                        transition-all
+                        duration-200
+                        focus:ring-2
+                        focus:ring-malta-400
+                        w-full
+                        appearance-none
+                        [&::-webkit-outer-spin-button]:appearance-none
+                        [&::-webkit-inner-spin-button]:appearance-none
+                        [moz-appearance:textfield]
+                        "
                         type="date"
                         name="maintenanceDate"
                         value={formData.maintenanceDate}
@@ -71,6 +82,17 @@ export default function MaintenanceForm({onSubmitMaintenance}: MaintenanceFormPr
                 <label className="block text-sm font-medium text-malta-200 mb-1">
                     Notes:
                     <Textarea
+                        className="
+                        transition-all
+                        duration-200
+                        focus:ring-2
+                        focus:ring-malta-400
+                        w-full
+                        appearance-none
+                        [&::-webkit-outer-spin-button]:appearance-none
+                        [&::-webkit-inner-spin-button]:appearance-none
+                        [moz-appearance:textfield]
+                        "
                         name="notes"
                         value={formData.notes}
                         onChange={handleChange}

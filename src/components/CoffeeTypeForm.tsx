@@ -5,7 +5,9 @@ import {Label} from "@/components/ui/label.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {Textarea} from "@/components/ui/textarea.tsx";
 import {CoffeeType} from "@/types/coffee.ts";
+import {RoastLevel} from "@/types/roast-level.ts";
 import {createCoffeeType} from "../../api/CoffeeAPI.ts"
+import { RoastLevelSelector } from "@/components/RoastLevelSelector";
 import { toast } from 'sonner';
 
 type CoffeeTypeFormProps = {
@@ -138,26 +140,12 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
                 <div>
                     <Label htmlFor="roastLevel" className="block text-sm font-medium text-malta-200 mb-1">Roast
                         Level</Label>
-                    <select
-                        id="roastLevel"
-                        name="roastLevel"
-                        value={formData.roastLevel}
-                        onChange={handleChange}
-                        className="w-full border rounded p-2
-                        transition-all
-                        duration-200
-                        focus:ring-2
-                        focus:ring-malta-400
-                        appearance-none
-                    [&::-webkit-outer-spin-button]:appearance-none
-                    [&::-webkit-inner-spin-button]:appearance-none
-                    [moz-appearance:textfield]
-                    "
-                    >
-                        <option value="light">Light</option>
-                        <option value="medium">Medium</option>
-                        <option value="dark">Dark</option>
-                    </select>
+                    <RoastLevelSelector
+                        value={formData.roastLevel as RoastLevel}
+                        onChange={(val) =>
+                            setFormData((prev) => ({ ...prev, roastLevel: val }))
+                        }
+                    />
                 </div>
 
                 <div>
