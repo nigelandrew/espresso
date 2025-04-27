@@ -68,7 +68,19 @@ function App() {
                     </Route>
                 </Routes>
             </Router>
-            <Toaster/>
+            <Toaster
+                position="bottom-right"
+                toastOptions={{
+                    unstyled: true,
+                    classNames: {
+                        toast: "flex items-center gap-3 p-4 rounded-md bg-malta-100 text-malta-800 border border-malta-300 shadow-md",
+                        success: "bg-toast-success text-toast-success-text border border-toast-success",
+                        error: "bg-toast-error text-toast-error-text border border-toast-error",
+                        warning: "bg-toast-warning text-toast-warning-text border border-toast-warning",
+                        info: "bg-toast-info text-toast-info-text border border-toast-info",
+                    },
+                }}
+            />
         </>
     );
 }
