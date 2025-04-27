@@ -68,7 +68,7 @@ export default function CoffeeTypeForm({onSubmit}: CoffeeTypeFormProps) {
     return (
         <div className="max-w-xl mx-auto bg-malta-950 text-malta-100 rounded-2xl shadow-lg p-6 space-y-6">
             <h2 className="text-3xl font-bold tracking-tight">Coffee Type</h2>
-            <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
+            <form onSubmit={handleSubmit} className="space-y-4 mx-auto">
                 {error && (
                     <p className="text-red-400 text-sm font-medium mb-2">{error}</p>
                 )}
