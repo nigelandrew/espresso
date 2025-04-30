@@ -6,7 +6,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table.tsx"
-
+import { downloadCSV } from "@/utils/exportCSV";
+import {Button} from "@/components/ui/button.tsx";
 import {Brew} from "@/types/brew.ts";
 
 type Props = {
@@ -22,6 +23,12 @@ export default function BrewTable({brews, onDelete}: Props) {
     return (
         <div className="mt-8">
             <h2 className="text-xl font-semibold mb-4">Brew History</h2>
+            <Button
+                onClick={() => downloadCSV(brews, "espresso-brews.csv")}
+                className="bg-malta-700 hover:bg-malta-600 text-white rounded px-4 py-2"
+            >
+                Export as CSV
+            </Button>
             <Table>
                 <TableHeader>
                     <TableRow>
