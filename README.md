@@ -31,6 +31,9 @@ This tool is intended to be responsive across multiple devices and accessed loca
 - 🛠 **Machine Maintenance Logging** *(coming soon)*  
   Keep track of when you backflushed, replaced filters, or changed gaskets.
 
+- ⚙️ **User Settings** *(coming soon)*
+  Better understand your preferences and keep track of your brew vessels.
+
 - 🌙 **Dark Mode**  
   Modern, theme-aware UI built with warm Malta-inspired earth tones.
 
