@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {NavLink, Outlet, useNavigate} from "react-router-dom";
-import {Menu, X, History, BarChart2, Coffee, ScrollText, Wrench} from "lucide-react";
+import {Menu, X, History, BarChart2, Coffee, ScrollText, Wrench, Settings} from "lucide-react";
 import {SidebarLink} from "@/components/SidebarLink.tsx";
 import {
     Sheet,
@@ -129,6 +129,15 @@ export default function AppLayout() {
                             sidebarOpen={sidebarOpen}
                         />
                     </nav>
+                    <div className="mt-auto pt-6 border-t border-malta-800">
+                        <SidebarLink
+                            to="/settings"
+                            icon={<Settings className="h-5 w-5" />}
+                            label="Settings"
+                            sidebarOpen={sidebarOpen}
+                        />
+                    </div>
+
                 </aside>
 
                 {/* Main content */}

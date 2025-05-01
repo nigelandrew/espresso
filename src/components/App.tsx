@@ -5,6 +5,7 @@ import BrewHistory from './BrewHistory.tsx';
 import CoffeeTypeForm from './CoffeeTypeForm.tsx';
 import BrewChart from "./BrewChart.tsx";
 import MaintenanceForm from "./MaintenanceForm.tsx";
+import Settings from "./Settings.tsx";
 import {Toaster, toast} from 'sonner';
 import {Brew} from "../types/brew.ts"
 import AppLayout from "./AppLayout.tsx";
@@ -65,6 +66,7 @@ function App() {
                         <Route path="/coffee-types"
                                element={<CoffeeTypeForm onSubmit={() => void 0}/>}/>
                         <Route path="/maintenance" element={<MaintenanceForm onSubmitMaintenance={() => {}} />}/>
+                        <Route path="/settings" element={<Settings/>}/>
                     </Route>
                 </Routes>
             </Router>
