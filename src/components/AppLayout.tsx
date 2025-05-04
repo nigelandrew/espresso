@@ -128,6 +128,13 @@ export default function AppLayout() {
                             label="Maintenance"
                             sidebarOpen={sidebarOpen}
                         />
+
+                        <SidebarLink
+                            to="/roasters"
+                            icon={<Wrench className="h-5 w-5"/>}
+                            label="Roasters"
+                            sidebarOpen={sidebarOpen}
+                        />
                     </nav>
                     <div className="mt-auto pt-6 border-t border-malta-800">
                         <SidebarLink

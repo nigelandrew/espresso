@@ -195,7 +195,7 @@ const BrewForm: React.FC<BrewFormProps> = ({onSubmitBrew}) => {
                     <SelectContent className="bg-malta-900 text-malta-100 border-malta-700">
                         {coffeeTypes.map((coffee) => (
                             <SelectItem key={coffee.id} value={coffee.id}>
-                                {coffee.name} — {coffee.roaster}
+                                {coffee.name}
                             </SelectItem>
                         ))}
                     </SelectContent>

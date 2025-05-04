@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Input } from "@/components/ui/input.tsx";
 import { Label } from "@/components/ui/label.tsx";
@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button.tsx";
 import { Textarea } from "@/components/ui/textarea.tsx";
 import { CoffeeType } from "@/types/coffee.ts";
 import { RoastLevel } from "@/types/roast-level.ts";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
+import {Roaster} from "@/types/roaster.ts";
 import { createCoffeeType } from "../../api/CoffeeAPI.ts";
 import { RoastLevelSelector } from "@/components/RoastLevelSelector";
 import { toast } from "sonner";
@@ -15,9 +17,21 @@ type CoffeeTypeFormProps = {
 };
 
 export default function CoffeeTypeForm({ onSubmit }: CoffeeTypeFormProps) {
+    const [roasters, setRoasters] = useState<Roaster[]>([]);
+
+    useEffect(() => {
+        fetch("http://localhost:4000/roasters")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("Roasters loaded:", data);
+                setRoasters(data);
+            })
+            .catch((err) => console.error("Failed to fetch roasters:", err));
+    }, []);
+
     const [formData, setFormData] = useState<Omit<CoffeeType, "id">>({
         name: "",
-        roaster: "",
+        roasterId: "",
         originLocation: "",
         elevation: "",
         roastLevel: "medium",
@@ -42,7 +56,6 @@ export default function CoffeeTypeForm({ onSubmit }: CoffeeTypeFormProps) {
         const newErrors: Record<string, string> = {};
 
         if (!(formData.name ?? "").trim()) newErrors.name = "Coffee name is required.";
-        if (!(formData.roaster ?? "").trim()) newErrors.roaster = "Roaster is required.";
         if (!(formData.originLocation ?? "").trim()) newErrors.originLocation = "Origin location is required.";
         if (!(formData.elevation ?? "").trim()) newErrors.elevation = "Elevation is required.";
         if (!(formData.roastLevel ?? "").trim()) newErrors.roastLevel = "Roast level is required.";
@@ -63,11 +76,11 @@ export default function CoffeeTypeForm({ onSubmit }: CoffeeTypeFormProps) {
             const saved = await createCoffeeType(fullCoffeeType);
             onSubmit?.(saved);
 
-            toast.success(`${formData.name} by ${formData.roaster} added successfully.`);
+            toast.success(`${formData.name} added successfully.`);
 
             setFormData({
                 name: "",
-                roaster: "",
+                roasterId: "",
                 originLocation: "",
                 elevation: "",
                 roastLevel: "medium",
@@ -100,16 +113,16 @@ export default function CoffeeTypeForm({ onSubmit }: CoffeeTypeFormProps) {
 
                 <div>
                     <Label htmlFor="roaster">Roaster</Label>
-                    <Input
-                        id="roaster"
-                        name="roaster"
-                        value={formData.roaster}
-                        onChange={handleChange}
-                        className={`
-              w-full transition-all duration-200 appearance-none
-              ${fieldErrors.roaster ? "border border-red-400 ring-2 ring-red-500" : "focus:ring-2 focus:ring-malta-400"}
-            `}
-                    />
+                    <Select onValueChange={(value) => setFormData(prev => ({ ...prev, roasterId: value }))}>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select a roaster" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {roasters.map(roaster => (
+                                <SelectItem key={roaster.id} value={roaster.id}>{roaster.roasterName}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
                     {fieldErrors.roaster && <p className="text-red-400 text-sm mt-1">{fieldErrors.roaster}</p>}
                 </div>
 

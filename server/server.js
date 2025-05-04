@@ -9,6 +9,7 @@ const PORT = 4000;
 const DATA_FILE = path.join(__dirname, 'brews.json');
 
 const coffeeTypesPath = path.join(__dirname, 'coffee-types.json');
+const roastersPath = path.join(__dirname, 'roasters.json');
 
 const loadCoffeeTypes = () => {
     if (!fs.existsSync(coffeeTypesPath)) return [];
@@ -16,8 +17,18 @@ const loadCoffeeTypes = () => {
     return JSON.parse(data);
 };
 
+const loadRoasters = () => {
+  if (!fs.existsSync(roastersPath)) return [];
+  const data = fs.readFileSync(roastersPath);
+  return JSON.parse(data);
+};
+
 const saveCoffeeTypes = (coffeeTypes) => {
     fs.writeFileSync(coffeeTypesPath, JSON.stringify(coffeeTypes, null, 2));
+};
+
+const saveRoasters = () => {
+    fs.writeFileSync(roastersPath, JSON.stringify(loadRoasters, null, 2));
 };
 
 // Middleware
@@ -45,6 +56,30 @@ app.get('/brews', (req, res) => {
 app.get('/coffee-types', (req, res) => {
     const coffeeTypes = loadCoffeeTypes();
     res.json(coffeeTypes);
+});
+
+app.get('/roasters', (req, res) => {
+   const roasters = loadRoasters();
+});
+
+app.post('/roasters', (req, res) => {
+   const newRoasters = req.body;
+
+   if (
+       typeof newRoasters.roasterName !== 'string'
+   ) {
+       return res.status(400).json({error: 'Invalid roaster format'});
+   }
+
+   const roasterWithServerMetadata = {
+       ...newRoasters,
+       id: uuidv4(),
+   };
+
+   const roasters = loadRoasters();
+   roasters.push(roasterWithServerMetadata);
+   saveRoasters(roasters);
+
 });
 
 // POST /brews → save new brew
