@@ -114,10 +114,10 @@ export default function CoffeeTypeForm({ onSubmit }: CoffeeTypeFormProps) {
                 <div>
                     <Label htmlFor="roaster">Roaster</Label>
                     <Select onValueChange={(value) => setFormData(prev => ({ ...prev, roasterId: value }))}>
-                        <SelectTrigger>
+                        <SelectTrigger className="w-full bg-malta-700 hover:bg-malta-600 text-white font-medium rounded-md shadow">
                             <SelectValue placeholder="Select a roaster" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-malta-900 text-malta-100 border-malta-700">
                             {roasters.map(roaster => (
                                 <SelectItem key={roaster.id} value={roaster.id}>{roaster.roasterName}</SelectItem>
                             ))}

@@ -27,8 +27,8 @@ const saveCoffeeTypes = (coffeeTypes) => {
     fs.writeFileSync(coffeeTypesPath, JSON.stringify(coffeeTypes, null, 2));
 };
 
-const saveRoasters = () => {
-    fs.writeFileSync(roastersPath, JSON.stringify(loadRoasters, null, 2));
+const saveRoasters = (roasters) => {
+    fs.writeFileSync(roastersPath, JSON.stringify(roasters, null, 2));
 };
 
 // Middleware
@@ -59,17 +59,22 @@ app.get('/coffee-types', (req, res) => {
 });
 
 app.get('/roasters', (req, res) => {
-   const roasters = loadRoasters();
+    const roasters = loadRoasters();
+    res.json(roasters);
 });
 
-app.post('/roasters', (req, res) => {
-   const newRoasters = req.body;
 
-   if (
-       typeof newRoasters.roasterName !== 'string'
-   ) {
-       return res.status(400).json({error: 'Invalid roaster format'});
-   }
+app.post('/roasters', (req, res) => {
+    console.log("📦 Incoming body:", req.body); // 🔍
+
+    const newRoasters = req.body;
+
+    if (
+        typeof newRoasters.roasterName !== 'string'
+    ) {
+        console.error("❌ Invalid format received:", newRoasters);
+        return res.status(400).json({ error: 'Invalid roaster format' });
+    }
 
    const roasterWithServerMetadata = {
        ...newRoasters,
@@ -79,6 +84,8 @@ app.post('/roasters', (req, res) => {
    const roasters = loadRoasters();
    roasters.push(roasterWithServerMetadata);
    saveRoasters(roasters);
+
+    res.status(201).json(roasterWithServerMetadata);
 
 });
 

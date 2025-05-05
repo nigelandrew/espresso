@@ -6,6 +6,7 @@ import CoffeeTypeForm from './CoffeeTypeForm.tsx';
 import BrewChart from "./BrewChart.tsx";
 import MaintenanceForm from "./MaintenanceForm.tsx";
 import RoasterForm from "./RoasterForm.tsx";
+import { createRoaster } from "../../api/RoasterAPI.ts";
 import Settings from "./Settings.tsx";
 import {Toaster, toast} from 'sonner';
 import {Brew} from "../types/brew.ts"
@@ -20,6 +21,16 @@ function App() {
             .then((data) => setBrews(data))
             .catch((err) => console.error('Failed to load brews:', err));
     }, []);
+
+    const handleRoasterSubmit = async (roasterData: { roasterName: string }) => {
+        try {
+            const saved = await createRoaster(roasterData);
+            toast.success(`Roaster "${saved.roasterName}" added!`);
+        } catch (err) {
+            console.error(err);
+            toast.error("Failed to save roaster.");
+        }
+    };
 
     const addBrew = async (brew: Omit<Brew, 'timestamp' | 'id'>) => {
         try {
@@ -67,7 +78,7 @@ function App() {
                         <Route path="/coffee-types"
                                element={<CoffeeTypeForm onSubmit={() => void 0}/>}/>
                         <Route path="/maintenance" element={<MaintenanceForm onSubmitMaintenance={() => {}} />}/>
-                        <Route path="/roasters" element ={<RoasterForm onSubmit={() => {}}/>}/>
+                        <Route path="/roasters" element ={<RoasterForm onSubmit={handleRoasterSubmit}/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Route>
                 </Routes>
