@@ -23,11 +23,11 @@ const labels: Record<RoastLevel, string> = {
 };
 
 const roastLevelColors = [
-    "text-malta-800",   // dark
-    "text-malta-700",   // med-dark
-    "text-malta-600",   // medium
-    "text-malta-500",   // med-light
-    "text-malta-400",   // light
+    "text-malta-800",
+    "text-malta-700",
+    "text-malta-600",
+    "text-malta-500",
+    "text-malta-400",
 ];
 
 type Props = {
@@ -38,7 +38,6 @@ type Props = {
 export function RoastLevelSelector({ value, onChange }: Props) {
     return (
         <div className="w-full flex flex-col items-center">
-
             <RadioGroup
                 value={value}
                 onValueChange={(val) => onChange(val as RoastLevel)}
@@ -46,26 +45,26 @@ export function RoastLevelSelector({ value, onChange }: Props) {
             >
                 {roastLevels.map((level, i) => (
                     <div key={level} className="flex flex-col items-center gap-1">
+                        {/* Make sure input is a peer of label */}
                         <RadioGroupItem
                             value={level}
                             id={level}
-                            className="peer opacity-0 absolute"
+                            className="peer hidden"
                         />
                         <label
                             htmlFor={level}
                             className={`
-    cursor-pointer flex flex-col items-center transition
-    hover:scale-105 peer-checked:scale-110
+    cursor-pointer flex flex-col items-center justify-center transition-all duration-150
+    hover:scale-105
+    ${value === level ? 'scale-110 bg-malta-950 ring-1 ring-malta-400' : ''}
     ${roastLevelColors[i]}
-    peer-checked:text-malta-400
-    peer-checked:border-2 peer-checked:border-malta-400
-    rounded-full p-2
+    rounded-full p-3
   `}
                         >
-                            <Icon iconNode={coffeeBean} className="h-6 w-6" />
+
+                        <Icon iconNode={coffeeBean} className="h-6 w-6" />
                             <span className="text-xs mt-1 text-center">{labels[level]}</span>
                         </label>
-
                     </div>
                 ))}
             </RadioGroup>
