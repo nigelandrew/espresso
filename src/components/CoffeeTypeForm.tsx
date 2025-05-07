@@ -56,6 +56,7 @@ export default function CoffeeTypeForm({ onSubmit }: CoffeeTypeFormProps) {
         const newErrors: Record<string, string> = {};
 
         if (!(formData.name ?? "").trim()) newErrors.name = "Coffee name is required.";
+        if (!(formData.roasterId ?? "").trim()) newErrors.roaster = "Roaster is required.";
         if (!(formData.originLocation ?? "").trim()) newErrors.originLocation = "Origin location is required.";
         if (!(formData.elevation ?? "").trim()) newErrors.elevation = "Elevation is required.";
         if (!(formData.roastLevel ?? "").trim()) newErrors.roastLevel = "Roast level is required.";
@@ -71,6 +72,7 @@ export default function CoffeeTypeForm({ onSubmit }: CoffeeTypeFormProps) {
 
 
         const fullCoffeeType: CoffeeType = { ...formData, id: uuidv4() };
+        console.log("Submitting formData:", formData);
 
         try {
             const saved = await createCoffeeType(fullCoffeeType);

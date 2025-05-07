@@ -124,7 +124,7 @@ app.post('/coffee-types', (req, res) => {
     if (
         typeof newCoffee.id !== 'string' ||
         typeof newCoffee.name !== 'string' ||
-        typeof newCoffee.roaster !== 'string' ||
+        typeof newCoffee.roasterId !== 'string' ||
         typeof newCoffee.originLocation !== 'string' ||
         typeof newCoffee.elevation !== 'string' ||
         typeof newCoffee.roastLevel !== 'string'
