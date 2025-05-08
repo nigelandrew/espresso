@@ -1,25 +1,18 @@
-import {useEffect, useState} from 'react';
-import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
-import BrewForm from './pages/BrewForm.tsx';
-import BrewHistory from './pages/BrewHistory.tsx';
-import CoffeeTypeForm from './pages/CoffeeTypeForm.tsx';
-import BrewChart from "./pages/BrewChart.tsx";
-import MaintenanceForm from "./pages/MaintenanceForm.tsx";
-import RoasterForm from "./pages/RoasterForm.tsx";
-import { createRoaster } from "../api/RoasterAPI.ts";
-import Settings from "./pages/Settings.tsx";
-import {Toaster, toast} from 'sonner';
-import {Brew} from "./types/brew.ts"
-import AppLayout from "./layout/AppLayout.tsx";
+import { BrowserRouter as Router } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Toaster, toast } from "sonner";
+import AppRouter from "./Router";
+import { Brew } from "./types/brew";
+import { createRoaster } from "../api/RoasterAPI";
 
 function App() {
     const [brews, setBrews] = useState<Brew[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:4000/brews')
+        fetch("http://localhost:4000/brews")
             .then((res) => res.json())
             .then((data) => setBrews(data))
-            .catch((err) => console.error('Failed to load brews:', err));
+            .catch((err) => console.error("Failed to load brews:", err));
     }, []);
 
     const handleRoasterSubmit = async (roasterData: { roasterName: string }) => {
@@ -32,21 +25,20 @@ function App() {
         }
     };
 
-    const addBrew = async (brew: Omit<Brew, 'timestamp' | 'id'>) => {
+    const addBrew = async (brew: Omit<Brew, "timestamp" | "id">) => {
         try {
-            await fetch('http://localhost:4000/brews', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+            await fetch("http://localhost:4000/brews", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(brew),
             });
 
-            // Reload brews from backend
-            const res = await fetch('http://localhost:4000/brews');
+            const res = await fetch("http://localhost:4000/brews");
             const updated = await res.json();
             setBrews(updated);
             toast.success("Brew added successfully");
         } catch (e) {
-            console.error('Failed to save brew:', e);
+            console.error("Failed to save brew:", e);
             toast.error("Failed to save brew. Please try again.");
         }
     };
@@ -54,14 +46,13 @@ function App() {
     const deleteBrew = async (id: string) => {
         try {
             await fetch(`http://localhost:4000/brews/${id}`, {
-                method: 'DELETE',
+                method: "DELETE",
             });
-            const updated = await fetch("http://localhost:4000/brews").then(r => r.json());
+            const updated = await fetch("http://localhost:4000/brews").then((r) => r.json());
             setBrews(updated);
-
             toast.success("Brew deleted successfully");
         } catch (e) {
-            console.error('Failed to delete brew:', e);
+            console.error("Failed to delete brew:", e);
             toast.error("Failed to delete brew. Please try again.");
         }
     };
@@ -69,19 +60,12 @@ function App() {
     return (
         <>
             <Router>
-                <Routes>
-                    <Route element={<AppLayout/>}>
-                        <Route path="/" element={<Navigate to="/log" replace/>}/>
-                        <Route path="/log" element={<BrewForm onSubmitBrew={addBrew}/>}/>
-                        <Route path="/history" element={<BrewHistory brews={brews} onDelete={deleteBrew}/>}/>
-                        <Route path="/charts" element={<BrewChart brews={brews}/>}/>
-                        <Route path="/coffee-types"
-                               element={<CoffeeTypeForm onSubmit={() => void 0}/>}/>
-                        <Route path="/maintenance" element={<MaintenanceForm onSubmitMaintenance={() => {}} />}/>
-                        <Route path="/roasters" element ={<RoasterForm onSubmit={handleRoasterSubmit}/>}/>
-                        <Route path="/settings" element={<Settings/>}/>
-                    </Route>
-                </Routes>
+                <AppRouter
+                    brews={brews}
+                    addBrew={addBrew}
+                    deleteBrew={deleteBrew}
+                    handleRoasterSubmit={handleRoasterSubmit}
+                />
             </Router>
             <Toaster
                 position="bottom-right"
