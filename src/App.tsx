@@ -1,16 +1,16 @@
 import {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
-import BrewForm from './BrewForm.tsx';
-import BrewHistory from './BrewHistory.tsx';
-import CoffeeTypeForm from './CoffeeTypeForm.tsx';
-import BrewChart from "./BrewChart.tsx";
-import MaintenanceForm from "./MaintenanceForm.tsx";
-import RoasterForm from "./RoasterForm.tsx";
-import { createRoaster } from "../../api/RoasterAPI.ts";
-import Settings from "./Settings.tsx";
+import BrewForm from './pages/BrewForm.tsx';
+import BrewHistory from './pages/BrewHistory.tsx';
+import CoffeeTypeForm from './pages/CoffeeTypeForm.tsx';
+import BrewChart from "./pages/BrewChart.tsx";
+import MaintenanceForm from "./pages/MaintenanceForm.tsx";
+import RoasterForm from "./pages/RoasterForm.tsx";
+import { createRoaster } from "../api/RoasterAPI.ts";
+import Settings from "./pages/Settings.tsx";
 import {Toaster, toast} from 'sonner';
-import {Brew} from "../types/brew.ts"
-import AppLayout from "./AppLayout.tsx";
+import {Brew} from "./types/brew.ts"
+import AppLayout from "./layout/AppLayout.tsx";
 
 function App() {
     const [brews, setBrews] = useState<Brew[]>([]);

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Brew} from '@/types/brew.ts';
-import BrewTable from './BrewTable.tsx';
+import BrewTable from '../components/BrewTable.tsx';
 import {useState} from "react";
 
 type BrewHistoryProps = {

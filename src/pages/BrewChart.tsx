@@ -11,7 +11,7 @@ import {
     Cell,
     Legend
 } from 'recharts';
-import { Brew } from "@/types/brew";
+import { Brew } from "@/types/brew.ts";
 
 type Props = {
     brews: Brew[];

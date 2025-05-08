@@ -9,7 +9,7 @@ import { RoastLevel } from "@/types/roast-level.ts";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
 import {Roaster} from "@/types/roaster.ts";
 import { createCoffeeType } from "../../api/CoffeeAPI.ts";
-import { RoastLevelSelector } from "@/components/RoastLevelSelector";
+import { RoastLevelSelector } from "@/components/RoastLevelSelector.tsx";
 import { toast } from "sonner";
 
 type CoffeeTypeFormProps = {
