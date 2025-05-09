@@ -28,7 +28,7 @@ This tool is intended to be responsive across multiple devices and accessed loca
 - ☕ **Coffee Type Management**  
   Log and organize your beans: origin, roaster, elevation, roast level, flavor notes.
 
-- 🛠 **Machine Maintenance Logging** *(coming soon)*  
+- 🛠 **Machine Maintenance Logging** *(coming soon)*
   Keep track of when you backflushed, replaced filters, or changed gaskets.
 
 - ⚙️ **User Settings** *(coming soon)*
@@ -94,7 +94,7 @@ API served at http://localhost:4000
 - ✅ Brew tracking and charting
 - ✅ Sidebar + mobile navigation
 - ✅ Responsive layout + dark mode
-- ⬜ Machine maintenance form
+- ✅ Machine maintenance form
 - ⬜ User settings / preferences
 - ⬜ SQLite migration option
 - ⬜ Optional cloud backup or export
