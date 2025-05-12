@@ -1,4 +1,5 @@
 import {Input} from "@/components/ui/input.tsx";
+import {DatePicker}  from "@/components/ui/date-picker.tsx";
 
 export default function Settings() {
 
@@ -38,6 +39,12 @@ export default function Settings() {
                         [moz-appearance:textfield]
                         "
                     name="email"
+                />
+            </label>
+
+            <label className="block text-sm font-medium text-malta-200 mb-1">
+                Date of Birth:
+                <DatePicker
                 />
             </label>
         </div>
