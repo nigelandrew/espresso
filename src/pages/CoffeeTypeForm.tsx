@@ -11,6 +11,7 @@ import {Roaster} from "@/types/roaster.ts";
 import { createCoffeeType } from "../../api/CoffeeAPI.ts";
 import { RoastLevelSelector } from "@/components/RoastLevelSelector.tsx";
 import { toast } from "sonner";
+import CoffeeTable from "@/components/CoffeeTable.tsx";
 
 type CoffeeTypeFormProps = {
     onSubmit?: (coffee: CoffeeType) => void;
@@ -95,6 +96,7 @@ export default function CoffeeTypeForm({ onSubmit }: CoffeeTypeFormProps) {
     };
 
     return (
+        <div>
         <div className="max-w-xl mx-auto bg-malta-950 text-malta-100 rounded-2xl shadow-lg p-6 space-y-6">
             <h2 className="text-3xl font-bold tracking-tight">Coffee Type</h2>
             <form onSubmit={handleSubmit} className="space-y-4 mx-auto">
@@ -191,6 +193,8 @@ export default function CoffeeTypeForm({ onSubmit }: CoffeeTypeFormProps) {
                     Save Coffee
                 </Button>
             </form>
+        </div>
+            <CoffeeTable coffees={}></CoffeeTable>
         </div>
     );
 }
