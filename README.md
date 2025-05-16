@@ -48,7 +48,7 @@ This tool is intended to be responsive across multiple devices and accessed loca
 - **Styling**: TailwindCSS + [shadcn/ui](https://ui.shadcn.dev/) components
 - **Charts**: [Recharts](https://recharts.org/)
 - **Data storage**: Express + local JSON files (via custom backend)
-- **Deployment target**: Self-hostable via Docker (Raspberry Pi–friendly)
+- **Deployment target**: Self-hostable via Docker (Raspberry Pi–friendly) *(coming soon)*
 
 ---
 
