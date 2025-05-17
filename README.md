@@ -22,8 +22,8 @@ This tool is intended to be responsive across multiple devices and accessed loca
 - 📈 **Brew Logging**  
   Capture details like coffee weight, yield, brew time, boiler temp, and grind setting.
 
-- 📊 **Charts**  
-  Visualize your ratios and brews over time — spot trends, refine technique.
+- 📊 **Analytics**  
+  Gain insights on your brews over time — spot trends, refine technique.
 
 - ☕ **Coffee Type Management**  
   Log and organize your beans: origin, roaster, elevation, roast level, flavor notes.
